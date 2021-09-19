@@ -1,0 +1,54 @@
+<div class="row dados-votacao" *ngIf="!exibeVotoRegistrado">
+  <div class="col">
+    <p>
+      <strong>Eleição: </strong>
+      <span>Eleição Diretória 2021</span>
+    </p>
+    <p>
+      <strong>Votação: </strong>
+      <span>Votação para Secretário</span>
+    </p>
+  </div>
+</div>
+
+<ng-container *ngIf="!exibeVotoRegistrado">
+  <div *ngFor="let candidato of votacao.candidatos" class="row candidato">
+    <hr>
+    <div class="col">
+      <img class="foto-candidato" [src]="candidato.fotoUrl" alt="Foto do candidato" />
+    </div>
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <span class="nome-candidato">{{candidato.nome}}</span>
+          <span class="apelido-candidato" *ngIf="candidato.apelido"> ({{candidato.apelido}})</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Matrícula: {{candidato.matricula}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-success btn-acao-votacao btn-selecionar" 
+                  [disabled]="processandoVoto || candidatoSelecionado === candidato.id"
+                  (click)="selecionarCandidato(candidato.id)">
+                  Selecionar
+          </button>
+          <button class="btn btn-success btn-acao-votacao" 
+                  [disabled]="processandoVoto || candidatoSelecionado !== candidato.id"
+                  (click)="confirmarVoto()">
+                  Confirmar voto
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="exibeVotoRegistrado">
+ <div class="voto-registrado">
+    Voto Registrado! 
+ </div>
+</ng-container>

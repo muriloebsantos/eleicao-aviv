@@ -1,0 +1,36 @@
+.candidato {
+    margin-left: 4px;
+}
+
+.foto-candidato {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 4px;
+}
+
+.apelido-candidato {
+    font-weight: bold;
+}
+
+.btn-selecionar {
+    margin-right: 4px;
+}
+
+.btn-acao-votacao {
+    margin-top: 50px;
+}
+
+.dados-votacao {
+    text-align: center;
+}
+
+.voto-registrado {
+    text-align: center;
+    font-weight: bold;
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
