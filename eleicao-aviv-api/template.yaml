@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Sample SAM Template for cashflow-api
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 10
+  Api:
+    Cors:
+      AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
+      AllowHeaders: "'Content-Type, Authorization'"
+      AllowOrigin: "'*'"
+
+Resources:
+  EleicaoAvivApi:
+      Type: AWS::Serverless::Api
+      Properties:
+        Name: Eleição AVIV API
+        StageName: prod
+        Auth:
+          AddDefaultAuthorizerToCorsPreflight: false
+          DefaultAuthorizer: MyLambdaTokenAuthorizer
+          Authorizers:
+            MyLambdaTokenAuthorizer:
+              FunctionArn: !GetAtt AuthHandlerFunction.Arn
+
+  AuthHandlerFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app
+      Handler: ./src/functions/authHandlerFunction.handler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      
+  
+
+  
