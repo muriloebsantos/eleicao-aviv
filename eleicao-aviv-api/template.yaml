@@ -25,9 +25,9 @@ Resources:
             MyLambdaTokenAuthorizer:
               FunctionArn: !GetAtt AuthHandlerFunction.Arn
 
- AppSettingsTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
+  AppSettingsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
         TableName: eleicao_aviv_settings
         BillingMode: PAY_PER_REQUEST 
         AttributeDefinitions:
@@ -41,6 +41,9 @@ Resources:
             -
               AttributeName: "config_name"
               KeyType: "HASH"
+            -
+              AttributeName: "config_value"
+              KeyType: "RANGE"
        
   AuthHandlerFunction:
     Type: AWS::Serverless::Function 
@@ -63,7 +66,7 @@ Resources:
           Properties:
             Path: /test
             Method: get
-            RestApiId: !Ref CashflowApi
+            RestApiId: !Ref EleicaoAvivApi
       
   
 

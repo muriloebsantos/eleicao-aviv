@@ -130,3 +130,6 @@ $RECYCLE.BIN/
 
 # dist dir
 dist/
+
+# aws sam
+.aws-sam/
