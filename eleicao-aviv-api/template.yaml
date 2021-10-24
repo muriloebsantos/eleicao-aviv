@@ -67,6 +67,25 @@ Resources:
             Path: /test
             Method: get
             RestApiId: !Ref EleicaoAvivApi
+
+  InserirEleicaoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/eleicaoFunction.inserirEleicaoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /eleicoes
+            Method: post
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE #TODO: remover para autenticar
       
   
 

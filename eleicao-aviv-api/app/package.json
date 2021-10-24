@@ -7,7 +7,11 @@
   "author": "SAM CLI",
   "license": "MIT",
   "dependencies": {
-    "jwt-simple": "^0.5.6"
+    "@types/uuid": "^8.3.1",
+    "jwt-simple": "^0.5.6",
+    "uuid": "^8.3.2",
+    "@types/mongodb": "^3.6.17",
+    "mongodb": "^3.6.9"
   },
   "scripts": {
     "compile": "tsc",
