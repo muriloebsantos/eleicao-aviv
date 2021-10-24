@@ -13,7 +13,7 @@ import ConfiguracaoRepository from '../repositories/configuracaoRepository';
     
     await client.connect();
 
-    db = client.db("cashflow");
+    db = client.db("eleicao-aviv");
 
     return db;
 };
