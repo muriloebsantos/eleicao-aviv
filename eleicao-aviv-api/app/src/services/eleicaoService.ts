@@ -7,14 +7,13 @@ export default class EleicaoService {
 
     public async inserirEleicao(eleicaoPayload: any): Promise<Eleicao> {
         const eleicao: Eleicao = {
-            _id: uuidv4(),
+            _id: eleicaoPayload.codigo,
             nome: eleicaoPayload.nome,
-            codigo: eleicaoPayload.codigo,
             igrejaId: eleicaoPayload.igrejaId
         };
 
         const eleicaoRepository = new EleicaoRepository();
-        const eleicaoExistente = await eleicaoRepository.obterEleicaoPorCodigo(eleicao.codigo);
+        const eleicaoExistente = await eleicaoRepository.obterEleicaoPorCodigo(eleicao._id);
 
         if(eleicaoExistente) {
             throw new ApiError('Já existe eleição cadastrada com esse código', 409);
