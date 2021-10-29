@@ -1,11 +1,11 @@
-import { Document } from "bson";
+import { Cargo } from "./cargo";
 
-export interface Eleicao extends Document {
+export interface Eleicao  {
     _id: string;
     igrejaId: string;
     nome: string;
-    codigo: string;
     dataInicio?: Date;
     dataFim?: Date;
     quantidadeEleitores?: number;
+    cargos: Cargo[];
 }
