@@ -12,6 +12,6 @@ export default class EleicaoRepository {
     public async obterEleicaoPorCodigo(codigo: string) : Promise<Eleicao> {
         const db = await connectMongoDb();
 
-        return db.collection('eleicoes').findOne<Eleicao>({ codigo });
+        return db.collection('eleicoes').findOne<Eleicao>({ _id: codigo });
     }
 }

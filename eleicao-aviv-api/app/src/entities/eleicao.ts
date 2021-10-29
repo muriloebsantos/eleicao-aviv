@@ -7,5 +7,4 @@ export interface Eleicao  {
     dataInicio?: Date;
     dataFim?: Date;
     quantidadeEleitores?: number;
-    cargos: Cargo[];
 }

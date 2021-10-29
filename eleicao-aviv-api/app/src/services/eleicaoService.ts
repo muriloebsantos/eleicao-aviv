@@ -1,7 +1,6 @@
 import { Eleicao } from "../entities/eleicao";
 import EleicaoRepository from "../repositories/eleicaoRepository";
 import { ApiError } from "../util/api-error";
-import { v4 as uuidv4 } from 'uuid';
 
 export default class EleicaoService {
 
@@ -22,5 +21,9 @@ export default class EleicaoService {
         await eleicaoRepository.inserirEleicao(eleicao);
 
         return eleicao;
+    }
+
+    public obterEleicaoPorId(id: string): Promise<Eleicao> {
+        return new EleicaoRepository().obterEleicaoPorCodigo(id);
     }
 }
