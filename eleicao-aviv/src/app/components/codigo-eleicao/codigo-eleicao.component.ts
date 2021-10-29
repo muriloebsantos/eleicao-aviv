@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-codigo-eleicao',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CodigoEleicaoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
+
+  formGroup!: FormGroup;
 
   ngOnInit() {
+    this.formGroup = this.formBuilder.group({
+      codigo: ['', [Validators.required]]
+    });
   }
 
+  iniciarVotacao() {
+    this.formGroup?.markAllAsTouched();
+
+    if(!this.formGroup?.valid) {
+      return;
+    }
+  }
 }

@@ -1,0 +1,15 @@
+<form [formGroup]="formGroup" (ngSubmit)="iniciarVotacao()">
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="form-group">
+        <label>Código da Eleição:</label>
+        <input type="text" class="form-control" formControlName="codigo">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <button type="submit" id="iniciar-votacao" class="btn btn-success">Iniciar Votação</button>
+    </div>
+  </div>
+</form>
