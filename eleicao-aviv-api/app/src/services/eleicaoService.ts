@@ -8,7 +8,9 @@ export default class EleicaoService {
         const eleicao: Eleicao = {
             _id: eleicaoPayload.codigo,
             nome: eleicaoPayload.nome,
-            igrejaId: eleicaoPayload.igrejaId
+            igrejaId: eleicaoPayload.igrejaId,
+            dataInicio: null,
+            dataFim: null
         };
 
         const eleicaoRepository = new EleicaoRepository();
