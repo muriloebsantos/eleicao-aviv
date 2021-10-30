@@ -15,7 +15,7 @@
   <div *ngFor="let candidato of votacao.candidatos" class="row candidato">
     <hr>
     <div class="col">
-      <img class="foto-candidato" [src]="candidato.fotoUrl" alt="Foto do candidato" />
+      <img class="foto-candidato" [src]="candidato.foto" alt="Foto do candidato" />
     </div>
     <div class="col">
       <div class="row">
@@ -26,18 +26,18 @@
       </div>
       <div class="row">
         <div class="col">
-          Matrícula: {{candidato.matricula}}
+          Matrícula: {{candidato._id}}
         </div>
       </div>
       <div class="row">
         <div class="col">
           <button class="btn btn-success btn-acao-votacao btn-selecionar" 
-                  [disabled]="processandoVoto || candidatoSelecionado === candidato.id"
-                  (click)="selecionarCandidato(candidato.id)">
+                  [disabled]="processandoVoto || candidatoSelecionado === candidato._id"
+                  (click)="selecionarCandidato(candidato._id)">
                   Selecionar
           </button>
           <button class="btn btn-success btn-acao-votacao" 
-                  [disabled]="processandoVoto || candidatoSelecionado !== candidato.id"
+                  [disabled]="processandoVoto || candidatoSelecionado !== candidato._id"
                   (click)="confirmarVoto()">
                   Confirmar voto
           </button>

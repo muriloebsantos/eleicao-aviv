@@ -1,0 +1,22 @@
+<h5>Candidatos</h5>
+<hr>
+
+<button class="btn btn-success incluir" (click)="abrirModalCandidato(0)">Incluir Candidato</button>
+<table class="table table-striped">
+  <thead>
+    <th>Matrícula</th>
+    <th>Nome</th>
+    <th>Apelido</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let candidato of candidatos">
+      <td>{{candidato._id}}</td>
+      <td>{{candidato.nome}}</td>
+      <td>{{candidato.apelido}}</td>
+      <td>
+        <button type="button" class="btn btn-sm btn-primary action">Editar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

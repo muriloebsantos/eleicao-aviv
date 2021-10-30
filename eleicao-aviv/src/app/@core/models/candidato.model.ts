@@ -1,7 +1,6 @@
 export interface Candidato {
-    id: string;
-    matricula: number;
+    _id: string;
     nome: string;
     apelido?: string;
-    fotoUrl: string;
+    foto: string;
 }

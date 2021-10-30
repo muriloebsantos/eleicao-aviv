@@ -28,15 +28,7 @@ export class VotacaoComponent implements OnInit {
     nome: 'Votação para Secretário',
     id: 'f445da-d4d5ad45-d4a44',
     candidatos: [
-      { id: '0000', matricula: 23, nome: 'Andreia Silva', fotoUrl: img, apelido: 'Andreinha'  },
-      { id: '0002', matricula: 35, nome: 'André Luis', fotoUrl: img2 , apelido: 'Deco' },
-      { id: '0001', matricula: 281, nome: 'Bruna Martins', fotoUrl: img  },
-      { id: '0003', matricula: 49, nome: 'Antônio Cristo', fotoUrl: img2, apelido: 'Jhuny'  },
-      { id: '0004', matricula: 554, nome: 'Carolina Volpi', fotoUrl: img, apelido: 'Carol'  },
-      { id: '0005', matricula: 56, nome: 'Cléber', fotoUrl: img, apelido: 'Clebinho'  },
-      { id: '0006', matricula: 57, nome: 'Laís Martins', fotoUrl: img2  },
-      { id: '0007', matricula: 1023, nome: 'Murilo Bacagini', fotoUrl: img  },
-      { id: '0008', matricula: 38, nome: 'Neusa Bacagini', fotoUrl: img  }
+    
     ]
   };
 

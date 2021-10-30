@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'votacao',
     component: VotacaoComponent
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule), 
   }
 ];
 
