@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Eleicao } from 'src/app/@core/models/eleicao.model';
 import { Votacao } from 'src/app/@core/models/votacao.model';
+import { EleicaoService } from 'src/app/@core/services/eleicao.service';
 
 const img = 'https://media.istockphoto.com/vectors/default-avatar-profile-icon-grey-photo-placeholder-vector-id1018999828?k=20&m=1018999828&s=170667a&w=0&h=tvLHB23bV5fQZBBgeDQX0LHKzTZIGfj5IOtYf3jVWzE=';
 const img2 = 'https://chedidgrieco.com.br/wp-content/uploads/2016/11/nobody_m.original.jpg';
@@ -12,11 +15,14 @@ const img2 = 'https://chedidgrieco.com.br/wp-content/uploads/2016/11/nobody_m.or
 
 export class VotacaoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private eleicaoService: EleicaoService,
+              private router: Router) { }
 
   public candidatoSelecionado: string = "";
   public exibeVotoRegistrado: boolean = false;
   public processandoVoto: boolean = false;
+
+  public eleicao?: Eleicao;
 
   public votacao: Votacao = {
     nome: 'Votação para Secretário',
@@ -35,6 +41,19 @@ export class VotacaoComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.eleicao = this.eleicaoService.eleicao;
+
+    if(!this.eleicao) {
+      const eleicaoId = localStorage.getItem("eleicao-aviv.eleicao");
+
+      if(eleicaoId) {
+        this.eleicaoService.obterEleicaoPorCodigo(eleicaoId).subscribe({
+          next: eleicao => this.eleicao = eleicao
+        });
+      } else {
+        this.router.navigate(['']);
+      }
+    }
   }
 
   selecionarCandidato(candidatoId: string) {

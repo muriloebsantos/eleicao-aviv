@@ -1,5 +1,5 @@
 export type Eleicao = {
-    _id: number,
+    _id: string,
     nome: string,
     dataInicio?: Date,
     dataFim?: Date

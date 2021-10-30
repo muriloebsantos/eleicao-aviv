@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EleicaoService } from 'src/app/@core/services/eleicao.service';
 
@@ -13,7 +14,8 @@ export class CodigoEleicaoComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private eleicaoService: EleicaoService,
-              private toastr: ToastrService
+              private toastr: ToastrService,
+              private router: Router
     ) { }
 
   formGroup!: FormGroup;
@@ -41,7 +43,11 @@ export class CodigoEleicaoComponent implements OnInit {
         } 
         else if (!eleicao.dataInicio) {
           this.toastr.warning('Eleição não iniciada!');
-        } 
+        } else {
+          localStorage.setItem("eleicao-aviv.eleicao", eleicao._id);
+          this.eleicaoService.eleicao = eleicao;
+          this.router.navigate(['votacao']);
+        }
         this.processando = false;
       },
       error: (err: HttpErrorResponse) => {
