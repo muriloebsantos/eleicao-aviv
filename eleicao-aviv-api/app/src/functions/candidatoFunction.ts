@@ -29,3 +29,14 @@ export const obterCandidatoHandler = async (event: APIGatewayProxyEvent): Promis
     return errorResult(err);
   }
 }
+
+export const listarCandidatosHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const candidatoService = new CandidatoService();
+    const result = await candidatoService.listarCandidatos();
+
+    return defaultResult(200, result);
+  } catch(err) {
+    return errorResult(err);
+  }
+}

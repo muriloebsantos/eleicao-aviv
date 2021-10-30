@@ -3,7 +3,7 @@ import { Candidato } from '../entities/candidato';
 
 export default class CandidatoRepository {
 
-    public async inserirCandidato(candidato: Candidato){
+    public async inserirCandidato(candidato: Candidato) {
         const db = await connectMongoDb();
 
          return db.collection('candidatos').insertOne(candidato);
@@ -13,5 +13,11 @@ export default class CandidatoRepository {
         const db = await connectMongoDb();
 
         return db.collection('candidatos').findOne<Candidato>({ _id: codigo });
+    }
+
+    public async listarCandidatos(): Promise<Candidato[]> {
+        const db = await connectMongoDb();
+
+        return db.collection('candidatos').find().sort({ nome: 1}).toArray();
     }
 }

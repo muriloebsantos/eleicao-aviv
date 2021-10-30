@@ -28,4 +28,8 @@ export default class CandidatoService {
     public obterCandidatoPorId(id: string): Promise<Candidato> {
         return new CandidatoRepository().obterCandidatoPorCodigo(id);
     }
+
+    public listarCandidatos(): Promise<Candidato[]> {
+        return new CandidatoRepository().listarCandidatos();
+    }
 }
