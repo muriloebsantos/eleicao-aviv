@@ -125,6 +125,44 @@ Resources:
             Auth:
               Authorizer: NONE #TODO: remover para autenticar
 
+  InserirCandidatoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/candidatoFunction.inserirCandidatoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /candidatos
+            Method: post
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE #TODO: remover para autenticar
+
+  ObterCandidatoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/candidatoFunction.obterCandidatoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /candidatos/{id}
+            Method: get
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE
+
       
   
 
