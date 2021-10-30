@@ -18,6 +18,6 @@ export default class CandidatoRepository {
     public async listarCandidatos(): Promise<Candidato[]> {
         const db = await connectMongoDb();
 
-        return db.collection('candidatos').find().sort({ nome: 1}).toArray();
+        return db.collection('candidatos').find({ ativo: true }).sort({ nome: 1}).toArray();
     }
 }

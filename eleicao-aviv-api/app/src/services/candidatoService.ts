@@ -8,6 +8,7 @@ export default class CandidatoService {
         const candidato: Candidato = {
             _id: candidatoPayload.codigo,
             nome: candidatoPayload.nome,
+            apelido: candidatoPayload.apelido,
             igrejaId: candidatoPayload.igrejaId,
             foto: candidatoPayload.foto,
             ativo: true
