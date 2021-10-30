@@ -23,6 +23,25 @@ export default class EleicaoService {
         return eleicao;
     }
 
+    public async iniciarEleicao(id: string): Promise<Eleicao> {
+        const eleicaoRepository = new EleicaoRepository();
+        const eleicaoExistente = await eleicaoRepository.obterEleicaoPorCodigo(id);
+
+        if(!eleicaoExistente) {
+            throw new ApiError('Eleição não existe', 404);
+        }
+
+        if(eleicaoExistente.dataInicio){
+            throw new ApiError('Eleição já iniciada', 422); 
+        }
+
+        eleicaoExistente.dataInicio = new Date();
+
+        await eleicaoRepository.atualizarEleicao(eleicaoExistente);
+
+        return eleicaoExistente;
+    } 
+
     public obterEleicaoPorId(id: string): Promise<Eleicao> {
         return new EleicaoRepository().obterEleicaoPorCodigo(id);
     }

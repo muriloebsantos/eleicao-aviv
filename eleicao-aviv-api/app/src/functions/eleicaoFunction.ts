@@ -29,3 +29,13 @@ export const obterEleicaoHandler = async (event: APIGatewayProxyEvent): Promise<
     return errorResult(err);
   }
 }
+
+export const iniciarEleicaoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const eleicaoService = new EleicaoService();
+    const result = await eleicaoService.iniciarEleicao(event.pathParameters.id);
+    return defaultResult(200, result);
+  } catch(err) {
+    return errorResult(err);
+  }
+}
