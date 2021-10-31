@@ -1,7 +1,7 @@
 <h5>Eleições</h5>
 <hr>
 
-<button class="btn btn-success incluir">Incluir Eleição</button>
+<button class="btn btn-success incluir" [routerLink]="['nova-eleicao']">Incluir Eleição</button>
 <table class="table table-striped">
   <thead>
     <th>Código</th>
@@ -14,10 +14,10 @@
     <tr *ngFor="let eleicao of eleicoes">
       <td>{{eleicao._id}}</td>
       <td>{{eleicao.nome}}</td>
-      <td>{{eleicao.dataEleicao | date: 'dd/MM/yyyy HH:mm'}}</td>
+      <td>{{eleicao.dataEleicao | date: 'dd/MM/yyyy'}}</td>
       <td>{{eleicao.quantidadeEleitores}}</td>
       <td>
-        <button type="button" class="btn btn-sm btn-primary action">Editar</button>
+        <button type="button" class="btn btn-sm btn-primary action" [routerLink]="[eleicao._id]">Editar</button>
       </td>
     </tr>
   </tbody>

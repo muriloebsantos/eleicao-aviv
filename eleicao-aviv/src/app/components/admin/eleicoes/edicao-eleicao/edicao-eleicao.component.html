@@ -1,0 +1,57 @@
+<h5>{{nomeEleicao}}</h5>
+<hr>
+
+<div class="row" [formGroup]="formGroup">
+  <div class="col-lg-2 col-md-6">
+    <div class="form-group">
+      <label for="_id">Código</label>
+      <input type="text" id="_id" formControlName="_id" class="form-control">
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6">
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" formControlName="nome" class="form-control">
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-6">
+    <div class="form-group">
+      <label for="dataEleicao">Data da Eleição</label>
+      <input type="date" id="dataEleicao" formControlName="dataEleicao" class="form-control">
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-6">
+    <div class="form-group">
+      <label for="quantidadeEleitores">Qtde. Eleitores</label>
+      <input type="number" id="quantidadeEleitores" formControlName="quantidadeEleitores" class="form-control">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <button id="btn-salvar-eleicao" type="button" class="btn btn-lg btn-success" (click)="salvar()">Salvar Alterações</button>
+  </div>
+</div>
+
+<ng-container *ngIf="id">
+  <h6>Cargos</h6>
+  <hr>
+
+  <button id="btn-incluir-cargo" class="btn btn-outline-success">Incluir Cargo</button>
+  <table class="table table-striped">
+    <thead>
+      <th>Nome do Cargo</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Secretario</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-primary action">Editar</button>
+          <button type="button" class="btn btn-sm btn-primary action">Candidatos</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

@@ -20,4 +20,8 @@ export class EleicaoService extends BaseService {
     public listarEleicoes(): Observable<Eleicao[]> {
         return this.httpClient.get<Eleicao[]>(`${this.endpoint}/eleicoes`);
     }
+
+    public inserirEleicao(eleicao: Eleicao): Observable<Eleicao> {
+        return this.httpClient.post<Eleicao>(`${this.endpoint}/eleicoes`, eleicao);
+    }
 }

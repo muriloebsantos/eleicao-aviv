@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UploadService } from 'src/app/@core/services/upload.service';
 import { EleicoesComponent } from './eleicoes/eleicoes.component';
 import { EleicaoService } from 'src/app/@core/services/eleicao.service';
+import { EdicaoEleicaoComponent } from './eleicoes/edicao-eleicao/edicao-eleicao.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { EleicaoService } from 'src/app/@core/services/eleicao.service';
   declarations: [
     AdminComponent,
     CandidatosComponent, EdicaoCandidatoComponent,
-    EleicoesComponent
+    EleicoesComponent, EdicaoEleicaoComponent
   ],
   providers: [
     CandidatoService,
