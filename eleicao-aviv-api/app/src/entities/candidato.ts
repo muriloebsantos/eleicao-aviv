@@ -1,5 +1,5 @@
 export interface Candidato {
-    _id: string;
+    _id: number;
     igrejaId: string;
     nome: string;
     apelido?: string;

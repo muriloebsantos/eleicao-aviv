@@ -9,7 +9,7 @@ export default class CandidatoRepository {
          return db.collection('candidatos').insertOne(candidato);
     }
 
-    public async obterCandidatoPorCodigo(codigo: string) : Promise<Candidato> {
+    public async obterCandidatoPorCodigo(codigo: number) : Promise<Candidato> {
         const db = await connectMongoDb();
 
         return db.collection('candidatos').findOne<Candidato>({ _id: codigo });

@@ -6,7 +6,7 @@ export default class CandidatoService {
 
     public async inserirCandidato(candidatoPayload: any): Promise<Candidato> {
         const candidato: Candidato = {
-            _id: candidatoPayload._id,
+            _id: Number(candidatoPayload._id),
             nome: candidatoPayload.nome,
             apelido: candidatoPayload.apelido,
             igrejaId: candidatoPayload.igrejaId,
@@ -26,7 +26,7 @@ export default class CandidatoService {
         return candidato;
     }
 
-    public obterCandidatoPorId(id: string): Promise<Candidato> {
+    public obterCandidatoPorId(id: number): Promise<Candidato> {
         return new CandidatoRepository().obterCandidatoPorCodigo(id);
     }
 
