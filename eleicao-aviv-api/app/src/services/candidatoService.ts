@@ -12,7 +12,6 @@ export default class CandidatoService {
             matricula: Number(candidatoPayload.matricula),
             nome: candidatoPayload.nome,
             apelido: candidatoPayload.apelido,
-            igrejaId: candidatoPayload.igrejaId,
             foto: candidatoPayload.foto,
             ativo: true
         };
