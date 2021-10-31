@@ -7,6 +7,7 @@ import { CandidatoService } from 'src/app/@core/services/candidato.service';
 import { EdicaoCandidatoComponent } from './candidatos/edicao-candidato/edicao-candidato.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UploadService } from 'src/app/@core/services/upload.service';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CandidatosComponent, EdicaoCandidatoComponent
   ],
   providers: [
-    CandidatoService
+    CandidatoService,
+    UploadService
   ]
 
 })

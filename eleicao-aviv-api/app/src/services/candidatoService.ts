@@ -6,7 +6,7 @@ export default class CandidatoService {
 
     public async inserirCandidato(candidatoPayload: any): Promise<Candidato> {
         const candidato: Candidato = {
-            _id: candidatoPayload.codigo,
+            _id: candidatoPayload._id,
             nome: candidatoPayload.nome,
             apelido: candidatoPayload.apelido,
             igrejaId: candidatoPayload.igrejaId,
@@ -18,7 +18,7 @@ export default class CandidatoService {
         const candidatoExistente = await candidatoRepository.obterCandidatoPorCodigo(candidato._id);
 
         if(candidatoExistente) {
-            throw new ApiError('Já existe candidato cadastrado com esse código', 409);
+            throw new ApiError('Já existe candidato cadastrado com essa matrícula/código', 409);
         }
 
         await candidatoRepository.inserirCandidato(candidato);

@@ -33,12 +33,12 @@
     <div class="col">
       <div class="form-group">
         <label for="foto">Foto</label>
-        <input type="text" id="foto" formControlName="foto" class="form-control">
+        <input type="file" id="file-input">
       </div>
     </div>
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-success" (click)="salvar()">Salvar</button>
+  <button type="button" class="btn btn-outline-success" (click)="salvar()" [disabled]="processando">Salvar</button>
   <button type="button" class="btn btn-outline-dark" (click)="fechar()">Cancelar</button>
 </div>
