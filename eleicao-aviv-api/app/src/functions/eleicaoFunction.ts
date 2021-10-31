@@ -30,10 +30,11 @@ export const obterEleicaoHandler = async (event: APIGatewayProxyEvent): Promise<
   }
 }
 
-export const iniciarEleicaoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const listarEleicoesHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const eleicaoService = new EleicaoService();
-    const result = await eleicaoService.iniciarEleicao(event.pathParameters.id);
+    const result = await eleicaoService.listarEleicoes();
+
     return defaultResult(200, result);
   } catch(err) {
     return errorResult(err);

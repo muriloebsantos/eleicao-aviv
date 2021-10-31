@@ -106,11 +106,11 @@ Resources:
             Auth:
               Authorizer: NONE
 
-  IniciarEleicaoFunction:
+  ListarEleicoesFunction:
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: app/dist
-      Handler: ./functions/eleicaoFunction.iniciarEleicaoHandler
+      Handler: ./functions/eleicaoFunction.listarEleicoesHandler
       Runtime: nodejs14.x
       MemorySize: 256
       Policies:
@@ -119,11 +119,12 @@ Resources:
         ApiGatewayEvent:
           Type: Api 
           Properties:
-            Path: /eleicoes/{id}/iniciar
-            Method: post
+            Path: /eleicoes
+            Method: get
             RestApiId: !Ref EleicaoAvivApi
             Auth:
-              Authorizer: NONE #TODO: remover para autenticar
+              Authorizer: NONE
+
 
   InserirCandidatoFunction:
     Type: AWS::Serverless::Function 

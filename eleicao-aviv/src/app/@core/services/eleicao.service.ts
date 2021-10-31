@@ -16,4 +16,8 @@ export class EleicaoService extends BaseService {
     public obterEleicaoPorCodigo(codigo: string): Observable<Eleicao> {
         return this.httpClient.get<Eleicao>(`${this.endpoint}/eleicoes/${codigo}`);
     }
+
+    public listarEleicoes(): Observable<Eleicao[]> {
+        return this.httpClient.get<Eleicao[]>(`${this.endpoint}/eleicoes`);
+    }
 }

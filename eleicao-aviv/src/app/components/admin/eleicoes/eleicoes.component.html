@@ -1,0 +1,24 @@
+<h5>Eleições</h5>
+<hr>
+
+<button class="btn btn-success incluir">Incluir Eleição</button>
+<table class="table table-striped">
+  <thead>
+    <th>Código</th>
+    <th>Nome</th>
+    <th>Data da Eleição</th>
+    <th>Qtde. Eleitores</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let eleicao of eleicoes">
+      <td>{{eleicao._id}}</td>
+      <td>{{eleicao.nome}}</td>
+      <td>{{eleicao.dataEleicao | date: 'dd/MM/yyyy HH:mm'}}</td>
+      <td>{{eleicao.quantidadeEleitores}}</td>
+      <td>
+        <button type="button" class="btn btn-sm btn-primary action">Editar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

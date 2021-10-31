@@ -18,7 +18,7 @@ export class VotacaoComponent implements OnInit {
   constructor(private eleicaoService: EleicaoService,
               private router: Router) { }
 
-  public candidatoSelecionado: number = 0;
+  public candidatoSelecionado: string = "";
   public exibeVotoRegistrado: boolean = false;
   public processandoVoto: boolean = false;
 
@@ -48,7 +48,7 @@ export class VotacaoComponent implements OnInit {
     }
   }
 
-  selecionarCandidato(candidatoId: number) {
+  selecionarCandidato(candidatoId: string) {
     this.candidatoSelecionado = candidatoId;
   }
 
@@ -59,7 +59,7 @@ export class VotacaoComponent implements OnInit {
     setTimeout(() => {
       this.exibeVotoRegistrado = true;
       this.processandoVoto = false;
-      this.candidatoSelecionado = 0;
+      this.candidatoSelecionado = "";
       setTimeout(() => {
         this.exibeVotoRegistrado = false;
       }, 10000);

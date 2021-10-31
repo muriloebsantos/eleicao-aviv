@@ -37,18 +37,11 @@ export class CodigoEleicaoComponent implements OnInit {
 
     this.processando = true;
     this.eleicaoService.obterEleicaoPorCodigo(this.formGroup.value.codigo).subscribe({
-      next: eleicao => {
-        if(eleicao.dataFim) {
-          this.toastr.warning('Eleição já encerrada!');
-        } 
-        else if (!eleicao.dataInicio) {
-          this.toastr.warning('Eleição não iniciada!');
-        } else {
+      next: eleicao => { 
           localStorage.setItem("eleicao-aviv.eleicao", eleicao._id);
           this.eleicaoService.eleicao = eleicao;
           this.router.navigate(['votacao']);
-        }
-        this.processando = false;
+          this.processando = false;
       },
       error: (err: HttpErrorResponse) => {
         if(err.status == 404) {

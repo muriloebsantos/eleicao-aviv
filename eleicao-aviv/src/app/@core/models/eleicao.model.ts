@@ -1,6 +1,6 @@
 export type Eleicao = {
     _id: string,
     nome: string,
-    dataInicio?: Date,
-    dataFim?: Date
+    dataEleicao: Date,
+    quantidadeEleitores: number
 };

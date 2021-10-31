@@ -8,6 +8,8 @@ import { EdicaoCandidatoComponent } from './candidatos/edicao-candidato/edicao-c
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UploadService } from 'src/app/@core/services/upload.service';
+import { EleicoesComponent } from './eleicoes/eleicoes.component';
+import { EleicaoService } from 'src/app/@core/services/eleicao.service';
 
 @NgModule({
   imports: [
@@ -18,11 +20,13 @@ import { UploadService } from 'src/app/@core/services/upload.service';
   ],
   declarations: [
     AdminComponent,
-    CandidatosComponent, EdicaoCandidatoComponent
+    CandidatosComponent, EdicaoCandidatoComponent,
+    EleicoesComponent
   ],
   providers: [
     CandidatoService,
-    UploadService
+    UploadService,
+    EleicaoService
   ]
 
 })

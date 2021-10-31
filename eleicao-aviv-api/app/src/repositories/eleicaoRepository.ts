@@ -20,4 +20,10 @@ export default class EleicaoRepository {
 
         return db.collection('eleicoes').findOne<Eleicao>({ _id: codigo });
     }
+
+    public async listarEleicoes(): Promise<Eleicao[]> {
+        const db = await connectMongoDb();
+
+        return db.collection('eleicoes').find().sort({ dataEleicao: 1}).toArray();
+    }
 }

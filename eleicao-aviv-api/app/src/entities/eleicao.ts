@@ -2,9 +2,7 @@ import { Cargo } from "./cargo";
 
 export interface Eleicao  {
     _id: string;
-    igrejaId: string;
     nome: string;
-    dataInicio?: Date;
-    dataFim?: Date;
+    dataEleicao: Date;
     quantidadeEleitores?: number;
 }
