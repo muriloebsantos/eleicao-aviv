@@ -163,6 +163,25 @@ Resources:
             Auth:
               Authorizer: NONE
 
+  AtualizarCandidatoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/candidatoFunction.atualizarCandidatoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /candidatos/{id}
+            Method: put
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE
+
   ListarCandidatosFunction:
     Type: AWS::Serverless::Function 
     Properties:

@@ -1,12 +1,15 @@
 import { Candidato } from "../entities/candidato";
 import CandidatoRepository from "../repositories/candidatoRepository";
 import { ApiError } from "../util/api-error";
+import { v4 as uuid } from "uuid";
+import { String } from "aws-sdk/clients/appstream";
 
 export default class CandidatoService {
 
     public async inserirCandidato(candidatoPayload: any): Promise<Candidato> {
         const candidato: Candidato = {
-            _id: Number(candidatoPayload._id),
+            _id: uuid(),
+            matricula: Number(candidatoPayload.matricula),
             nome: candidatoPayload.nome,
             apelido: candidatoPayload.apelido,
             igrejaId: candidatoPayload.igrejaId,
@@ -15,10 +18,10 @@ export default class CandidatoService {
         };
 
         const candidatoRepository = new CandidatoRepository();
-        const candidatoExistente = await candidatoRepository.obterCandidatoPorCodigo(candidato._id);
+        const candidatoExistente = await candidatoRepository.obterCandidatoPorMatricula(candidato.matricula);
 
         if(candidatoExistente) {
-            throw new ApiError('Já existe candidato cadastrado com essa matrícula/código', 409);
+            throw new ApiError('Já existe candidato cadastrado com essa matrícula', 409);
         }
 
         await candidatoRepository.inserirCandidato(candidato);
@@ -26,8 +29,31 @@ export default class CandidatoService {
         return candidato;
     }
 
-    public obterCandidatoPorId(id: number): Promise<Candidato> {
-        return new CandidatoRepository().obterCandidatoPorCodigo(id);
+    public async atualizarCandidato(id: string, candidatoPayload: any): Promise<Candidato> {
+        const candidato: Candidato = {
+            _id: id,
+            matricula: Number(candidatoPayload.matricula),
+            nome: candidatoPayload.nome,
+            apelido: candidatoPayload.apelido,
+            igrejaId: candidatoPayload.igrejaId,
+            foto: candidatoPayload.foto,
+            ativo: true
+        };
+
+        const candidatoRepository = new CandidatoRepository();
+        const candidatoExistente = await candidatoRepository.obterCandidatoPorMatricula(candidato.matricula);
+
+        if(candidatoExistente && candidatoExistente._id != id) {
+            throw new ApiError('Já existe candidato cadastrado com essa matrícula', 409);
+        }
+
+        await candidatoRepository.atualizarCandidato(id, candidato);
+
+        return candidato;
+    }
+
+    public obterCandidatoPorId(id: String): Promise<Candidato> {
+        return new CandidatoRepository().obterCandidatoPorId(id);
     }
 
     public listarCandidatos(): Promise<Candidato[]> {

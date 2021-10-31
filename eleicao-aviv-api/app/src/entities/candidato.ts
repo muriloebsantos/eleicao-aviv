@@ -1,5 +1,6 @@
 export interface Candidato {
-    _id: number;
+    _id: string;
+    matricula: number;
     igrejaId: string;
     nome: string;
     apelido?: string;

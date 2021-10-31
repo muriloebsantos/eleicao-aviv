@@ -1,7 +1,7 @@
 <h5>Candidatos</h5>
 <hr>
 
-<button class="btn btn-success incluir" (click)="abrirModalCandidato(0)">Incluir Candidato</button>
+<button class="btn btn-success incluir" (click)="abrirModalCandidato('')">Incluir Candidato</button>
 <table class="table table-striped">
   <thead>
     <th>Matrícula</th>
@@ -11,11 +11,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let candidato of candidatos">
-      <td>{{candidato._id}}</td>
+      <td>{{candidato.matricula}}</td>
       <td>{{candidato.nome}}</td>
       <td>{{candidato.apelido}}</td>
       <td>
-        <button type="button" class="btn btn-sm btn-primary action">Editar</button>
+        <button type="button" class="btn btn-sm btn-primary action" (click)="abrirModalCandidato(candidato._id)">Editar</button>
       </td>
     </tr>
   </tbody>

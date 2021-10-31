@@ -15,10 +15,20 @@ export const inserirCandidatoHandler = async (event: APIGatewayProxyEvent): Prom
     }
 }
 
+export const atualizarCandidatoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const candidatoService = new CandidatoService();
+    const result = await candidatoService.atualizarCandidato(event.pathParameters.id, JSON.parse(event.body));
+    return defaultResult(200, result);
+  } catch(err) {
+    return errorResult(err);
+  }
+}
+
 export const obterCandidatoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const candidatoService = new CandidatoService();
-    const result = await candidatoService.obterCandidatoPorId(Number(event.pathParameters.id));
+    const result = await candidatoService.obterCandidatoPorId(event.pathParameters.id);
 
     if(result)
       return defaultResult(200, result);
