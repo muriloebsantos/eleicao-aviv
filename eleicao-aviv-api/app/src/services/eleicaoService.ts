@@ -25,15 +25,12 @@ export default class EleicaoService {
     }
 
     public async atualizarEleicao(id: string, eleicaoPayload: any): Promise<Eleicao> {
-        const eleicao: Eleicao = {
-            _id: id,
-            nome: eleicaoPayload.nome,
-            dataEleicao: new Date(eleicaoPayload.dataEleicao),
-            quantidadeEleitores: (eleicaoPayload.quantidadeEleitores && Number(eleicaoPayload.quantidadeEleitores)) || null        
-        };
-
         const eleicaoRepository = new EleicaoRepository();
-        
+        const eleicao = await eleicaoRepository.obterEleicaoPorCodigo(id);
+        eleicao.nome = eleicaoPayload.nome;
+        eleicao.dataEleicao = new Date(eleicaoPayload.dataEleicao);
+        eleicao.quantidadeEleitores = (eleicaoPayload.quantidadeEleitores && Number(eleicaoPayload.quantidadeEleitores)) || null;
+       
         await eleicaoRepository.atualizarEleicao(id, eleicao);
 
         return eleicao;
