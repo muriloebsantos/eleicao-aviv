@@ -24,4 +24,8 @@ export class EleicaoService extends BaseService {
     public inserirEleicao(eleicao: Eleicao): Observable<Eleicao> {
         return this.httpClient.post<Eleicao>(`${this.endpoint}/eleicoes`, eleicao);
     }
+
+    public atualizarEleicao(id: string, eleicao: Eleicao): Observable<Eleicao> {
+        return this.httpClient.put<Eleicao>(`${this.endpoint}/eleicoes/${id}`, eleicao);
+    }
 }

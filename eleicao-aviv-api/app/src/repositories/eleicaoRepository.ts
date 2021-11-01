@@ -9,10 +9,10 @@ export default class EleicaoRepository {
          return db.collection('eleicoes').insertOne(eleicao);
     }
 
-    public async atualizarEleicao(eleicao: Eleicao){
+    public async atualizarEleicao(id: string, eleicao: Eleicao){
         const db = await connectMongoDb();
 
-         return db.collection('eleicoes').replaceOne({ _id: eleicao._id}, eleicao);
+         return db.collection('eleicoes').replaceOne({ _id: id }, eleicao);
     }
 
     public async obterEleicaoPorCodigo(codigo: string) : Promise<Eleicao> {

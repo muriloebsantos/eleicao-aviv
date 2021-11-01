@@ -30,7 +30,7 @@
 
 <div class="row">
   <div class="col">
-    <button id="btn-salvar-eleicao" type="button" class="btn btn-lg btn-success" (click)="salvar()">Salvar Alterações</button>
+    <button id="btn-salvar-eleicao" type="button" class="btn btn-lg btn-success" (click)="salvar()" [disabled]="processando">Salvar Alterações</button>
   </div>
 </div>
 

@@ -15,6 +15,16 @@ export const inserirEleicaoHandler = async (event: APIGatewayProxyEvent): Promis
     }
 }
 
+export const atualizarEleicaoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const eleicaoService = new EleicaoService();
+    const result = await eleicaoService.atualizarEleicao(event.pathParameters.id, JSON.parse(event.body));
+    return defaultResult(200, result);
+  } catch(err) {
+    return errorResult(err);
+  }
+}
+
 export const obterEleicaoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const eleicaoService = new EleicaoService();

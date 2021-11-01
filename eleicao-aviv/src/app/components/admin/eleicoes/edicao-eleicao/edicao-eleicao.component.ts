@@ -23,6 +23,7 @@ export class EdicaoEleicaoComponent implements OnInit {
   public nomeEleicao: string = "";
   public id: string = "";
   public formGroup!: FormGroup;
+  public processando: boolean = false;
 
   ngOnInit() {
 
@@ -72,11 +73,13 @@ export class EdicaoEleicaoComponent implements OnInit {
     const eleicao = this.formGroup.value as Eleicao;
 
     if(!this.id) {
+      this.processando = true;
       this.eleicaoService.inserirEleicao(eleicao).subscribe({
         next: inserido => {
           this.toastr.success('Eleição inserida com sucesso');
           this.id = inserido._id;
           this.nomeEleicao = inserido.nome;
+          this.processando = false;
         },
         error: (err: HttpErrorResponse) => {
           if(err.status !== 500) {
@@ -84,8 +87,26 @@ export class EdicaoEleicaoComponent implements OnInit {
           } else {
             this.toastr.error('Erro ao inserir a eleição');
           }
+          this.processando = false;
         }
-      })
+      });
+    } else {
+      this.processando = true;
+      this.eleicaoService.atualizarEleicao(this.id, eleicao).subscribe({
+        next: alterado => {
+          this.toastr.success('Eleição alterada com sucesso');
+          this.nomeEleicao = alterado.nome;
+          this.processando = false;
+        },
+        error: (err: HttpErrorResponse) => {
+          if(err.status !== 500) {
+            this.toastr.error(err.error);
+          } else {
+            this.toastr.error('Erro ao alterar a eleição');
+          }
+          this.processando = false;
+        }
+      });
     }
   }
 

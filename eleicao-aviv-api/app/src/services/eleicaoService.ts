@@ -24,6 +24,21 @@ export default class EleicaoService {
         return eleicao;
     }
 
+    public async atualizarEleicao(id: string, eleicaoPayload: any): Promise<Eleicao> {
+        const eleicao: Eleicao = {
+            _id: id,
+            nome: eleicaoPayload.nome,
+            dataEleicao: new Date(eleicaoPayload.dataEleicao),
+            quantidadeEleitores: (eleicaoPayload.quantidadeEleitores && Number(eleicaoPayload.quantidadeEleitores)) || null        
+        };
+
+        const eleicaoRepository = new EleicaoRepository();
+        
+        await eleicaoRepository.atualizarEleicao(id, eleicao);
+
+        return eleicao;
+    }
+
     public obterEleicaoPorId(id: string): Promise<Eleicao> {
         return new EleicaoRepository().obterEleicaoPorCodigo(id);
     }
