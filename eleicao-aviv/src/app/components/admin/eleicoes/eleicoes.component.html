@@ -2,6 +2,7 @@
 <hr>
 
 <button class="btn btn-success incluir" [routerLink]="['nova-eleicao']">Incluir Eleição</button>
+<div *ngIf="carregando">Carregando...</div>
 <table class="table table-striped">
   <thead>
     <th>Código</th>

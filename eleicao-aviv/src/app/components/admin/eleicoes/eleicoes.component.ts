@@ -15,15 +15,23 @@ export class EleicoesComponent implements OnInit {
     ) { }
 
   public eleicoes: Eleicao[] = [];
+  public carregando: boolean = false;
   
   ngOnInit() {
     this.carregarEleicoes();
   }
 
   carregarEleicoes() {
+    this.carregando = true;
     this.eleicaoService.listarEleicoes().subscribe({
-      next: eleicoes => this.eleicoes = eleicoes,
-      error: () => this.toastr.error('Erro ao obter eleições')
+      next: eleicoes => {
+        this.eleicoes = eleicoes;
+        this.carregando = false;
+      },
+      error: () => {
+        this.toastr.error('Erro ao obter eleições');
+        this.carregando = false;
+      }
     })
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Candidato } from 'src/app/@core/models/candidato.model';
 import { CandidatoService } from 'src/app/@core/services/candidato.service';
@@ -13,10 +14,12 @@ import { EdicaoCandidatoComponent } from './edicao-candidato/edicao-candidato.co
 export class CandidatosComponent implements OnInit, OnDestroy {
 
   constructor(private candidatoService: CandidatoService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private toatr: ToastrService) { }
 
   public candidatos: Candidato[] = [];
   public onCandidatoInseridoOuAlteradoSubscripton!: Subscription;
+  public carregando: boolean = false;
 
   ngOnInit() {
     this.carregarCandidatos();
@@ -30,9 +33,15 @@ export class CandidatosComponent implements OnInit, OnDestroy {
   }
 
   carregarCandidatos() {
+    this.carregando = true;
     this.candidatoService.listarCandidatos().subscribe({
       next: candidatos => {
         this.candidatos = candidatos;
+        this.carregando = false;
+      },
+      error: () => {
+        this.carregando = false;
+        this.toatr.error('Erro ao carregar candidatos');
       }
     })
   }

@@ -2,7 +2,8 @@
 <hr>
 
 <button class="btn btn-success incluir" (click)="abrirModalCandidato('')">Incluir Candidato</button>
-<table class="table table-striped">
+<div *ngIf="carregando">Carregando...</div>
+<table class="table table-striped" *ngIf="!carregando">
   <thead>
     <th>Matrícula</th>
     <th>Nome</th>
