@@ -1,7 +1,8 @@
 <h5>{{nomeEleicao}}</h5>
 <hr>
 
-<div class="row" [formGroup]="formGroup">
+<div *ngIf="carregando">Carregando...</div>
+<div class="row" [formGroup]="formGroup" *ngIf="!carregando">
   <div class="col-lg-2 col-md-6">
     <div class="form-group">
       <label for="_id">Código</label>
@@ -28,7 +29,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="!carregando">
   <div class="col">
     <button id="btn-salvar-eleicao" type="button" class="btn btn-lg btn-success" (click)="salvar()" [disabled]="processando">Salvar Alterações</button>
   </div>

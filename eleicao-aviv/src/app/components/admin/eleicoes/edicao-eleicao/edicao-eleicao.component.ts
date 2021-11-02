@@ -24,6 +24,7 @@ export class EdicaoEleicaoComponent implements OnInit {
   public id: string = "";
   public formGroup!: FormGroup;
   public processando: boolean = false;
+  public carregando: boolean = false;
 
   ngOnInit() {
 
@@ -47,14 +48,19 @@ export class EdicaoEleicaoComponent implements OnInit {
   }
 
   obterEleicao() {
+    this.carregando = true;
     this.eleicaoService.obterEleicaoPorCodigo(this.id).subscribe({
       next: eleicao => {
+        this.carregando = false;
         this.nomeEleicao = eleicao.nome;
         this.formGroup.patchValue(eleicao);
         this.formGroup.patchValue({ dataEleicao: formatDate(eleicao.dataEleicao, 'yyyy-MM-dd', 'en')});
         this.formGroup.get('_id')?.disable();
       },
-      error: () => this.toastr.error('Erro ao carregar a Eleição')
+      error: () => {
+        this.toastr.error('Erro ao carregar a Eleição');
+        this.carregando = false;
+      }
     })
   }
 
