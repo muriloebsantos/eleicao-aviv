@@ -221,6 +221,81 @@ Resources:
             Auth:
               Authorizer: NONE
 
+  InserirCargoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/cargoFunction.inserirCargoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /cargos
+            Method: post
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE #TODO: remover para autenticar
+
+  ObterCargoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/cargoFunction.obterCargoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /cargos/{id}
+            Method: get
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE
+
+  AtualizarCargoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/cargoFunction.atualizarCargoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /cargos/{id}
+            Method: put
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE
+
+  ListarCargosFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/cargoFunction.listarCargosHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /cargos
+            Method: get
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE
   
   UploadFunction:
     Type: AWS::Serverless::Function 

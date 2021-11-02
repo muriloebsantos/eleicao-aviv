@@ -28,6 +28,10 @@ export class CargoService {
         return cargo;
     }
 
+    public obterCargoPorId(id: string): Promise<Cargo> {
+        return new CargoRepository().obterCargoPorCodigo(id);
+    }
+
     public listarCargos(eleicaoId: string): Promise<Cargo[]> {
         return new CargoRepository().listarCargos(eleicaoId);
     }
