@@ -3,7 +3,7 @@
 
 <button class="btn btn-success incluir" [routerLink]="['nova-eleicao']">Incluir Eleição</button>
 <div *ngIf="carregando">Carregando...</div>
-<table class="table table-striped">
+<table class="table table-striped" *ngIf="!carregando">
   <thead>
     <th>Código</th>
     <th>Nome</th>

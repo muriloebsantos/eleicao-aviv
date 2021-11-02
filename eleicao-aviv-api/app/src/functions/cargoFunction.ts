@@ -25,7 +25,7 @@ export const atualizarCargoHandler = async (event: APIGatewayProxyEvent): Promis
   }
 }
 
-export const obterCandidatoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const obterCargoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const cargoService = new CargoService();
     const result = await cargoService.obterCargoPorId(event.pathParameters.id);

@@ -1,23 +1,30 @@
 import { formatDate } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { Cargo } from 'src/app/@core/models/cargo.model';
 import { Eleicao } from 'src/app/@core/models/eleicao.model';
+import { CargoService } from 'src/app/@core/services/cargo.service';
 import { EleicaoService } from 'src/app/@core/services/eleicao.service';
+import { EdicaoCargoComponent } from './edicao-cargo/edicao-cargo.component';
 
 @Component({
   selector: 'app-edicao-eleicao',
   templateUrl: './edicao-eleicao.component.html',
   styleUrls: ['./edicao-eleicao.component.scss']
 })
-export class EdicaoEleicaoComponent implements OnInit {
+export class EdicaoEleicaoComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
              private eleicaoService: EleicaoService,
+             private cargoService: CargoService,
              private toastr: ToastrService,
-             private formBuilder: FormBuilder
+             private formBuilder: FormBuilder,
+             private modalService: NgbModal
     ) { }
 
   public nomeEleicao: string = "";
@@ -25,7 +32,11 @@ export class EdicaoEleicaoComponent implements OnInit {
   public formGroup!: FormGroup;
   public processando: boolean = false;
   public carregando: boolean = false;
+  public carregandoCargos: boolean = false;
+  public cargos: Cargo[] = [];
 
+  private onCargoInseridoOuAlteradoSubscription!: Subscription;
+ 
   ngOnInit() {
 
     this.formGroup = this.formBuilder.group({
@@ -40,11 +51,20 @@ export class EdicaoEleicaoComponent implements OnInit {
          if(params.id !== "nova-eleicao") {
            this.id = params.id;
            this.obterEleicao();
+           this.obterCargos();
          } else {
            this.novaEleicao();
          }
       }
-    })
+    });
+
+    this.onCargoInseridoOuAlteradoSubscription = this.cargoService.onCargoInseridoOuAlterado.subscribe({
+      next: () => this.obterCargos()
+    });
+  }
+
+  ngOnDestroy() {
+    this.onCargoInseridoOuAlteradoSubscription.unsubscribe();
   }
 
   obterEleicao() {
@@ -60,6 +80,20 @@ export class EdicaoEleicaoComponent implements OnInit {
       error: () => {
         this.toastr.error('Erro ao carregar a Eleição');
         this.carregando = false;
+      }
+    })
+  }
+
+  obterCargos() {
+    this.carregandoCargos = true;
+    this.cargoService.listarCargos(this.id).subscribe({
+      next: cargos => {
+        this.cargos = cargos;
+        this.carregandoCargos = false;
+      },
+      error: () => {
+        this.toastr.error('Erro ao carregar os cargos');
+        this.carregandoCargos = false;
       }
     })
   }
@@ -116,4 +150,9 @@ export class EdicaoEleicaoComponent implements OnInit {
     }
   }
 
+  abrirModalCargo(cargoId: string) {
+    const ref = this.modalService.open(EdicaoCargoComponent);
+    ref.componentInstance.id = cargoId;
+    ref.componentInstance.eleicaoId = this.id;
+  }
 }

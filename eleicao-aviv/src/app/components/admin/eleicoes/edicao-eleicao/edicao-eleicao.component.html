@@ -39,17 +39,20 @@
   <h6>Cargos</h6>
   <hr>
 
-  <button id="btn-incluir-cargo" class="btn btn-outline-success">Incluir Cargo</button>
-  <table class="table table-striped">
+  <button id="btn-incluir-cargo" class="btn btn-outline-success" (click)="abrirModalCargo('')">Incluir Cargo</button>
+  <div *ngIf="carregandoCargos">Carregando...</div>
+  <table class="table table-striped" *ngIf="!carregandoCargos">
     <thead>
       <th>Nome do Cargo</th>
+      <th>Vagas</th>
       <th></th>
     </thead>
     <tbody>
-      <tr>
-        <td>Secretario</td>
+      <tr *ngFor="let cargo of cargos">
+        <td>{{cargo.nome}}</td>
+        <td>{{cargo.vagas}}</td>
         <td>
-          <button type="button" class="btn btn-sm btn-primary action">Editar</button>
+          <button type="button" class="btn btn-sm btn-primary action" (click)="abrirModalCargo(cargo._id)">Editar</button>
           <button type="button" class="btn btn-sm btn-primary action">Candidatos</button>
         </td>
       </tr>

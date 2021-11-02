@@ -11,6 +11,8 @@ import { UploadService } from 'src/app/@core/services/upload.service';
 import { EleicoesComponent } from './eleicoes/eleicoes.component';
 import { EleicaoService } from 'src/app/@core/services/eleicao.service';
 import { EdicaoEleicaoComponent } from './eleicoes/edicao-eleicao/edicao-eleicao.component';
+import { EdicaoCargoComponent } from './eleicoes/edicao-eleicao/edicao-cargo/edicao-cargo.component';
+import { CargoService } from 'src/app/@core/services/cargo.service';
 
 @NgModule({
   imports: [
@@ -22,12 +24,13 @@ import { EdicaoEleicaoComponent } from './eleicoes/edicao-eleicao/edicao-eleicao
   declarations: [
     AdminComponent,
     CandidatosComponent, EdicaoCandidatoComponent,
-    EleicoesComponent, EdicaoEleicaoComponent
+    EleicoesComponent, EdicaoEleicaoComponent, EdicaoCargoComponent
   ],
   providers: [
     CandidatoService,
     UploadService,
-    EleicaoService
+    EleicaoService,
+    CargoService
   ]
 
 })

@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h4 class="modal-title">Cargo</h4>
+  <button type="button" class="close" aria-label="Close" (click)="fechar()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" *ngIf="carregando">Carregando...</div>
+<div class="modal-body" [formGroup]="formGroup" *ngIf="!carregando">
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="matricula" formControlName="nome" class="form-control">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="vagas">Vagas</label>
+        <input type="number" id="vagas" formControlName="vagas" class="form-control">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <label *ngIf="processando">Processando...</label>
+  <button type="button" class="btn btn-outline-success" (click)="salvar()" [disabled]="processando">Salvar</button>
+  <button type="button" class="btn btn-outline-dark" (click)="fechar()">Cancelar</button>
+</div>

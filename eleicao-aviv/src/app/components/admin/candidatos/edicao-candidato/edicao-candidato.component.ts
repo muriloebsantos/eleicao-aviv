@@ -24,6 +24,7 @@ export class EdicaoCandidatoComponent implements OnInit {
 
   public formGroup!: FormGroup;
   public processando: boolean = false;
+  public carregando: boolean = false;
   public id: string = "";
   public fotoUrl: string = "";
   public foto: string = "";
@@ -41,17 +42,17 @@ export class EdicaoCandidatoComponent implements OnInit {
   }
 
   carregarCandidato() {
-    this.processando = true;
+    this.carregando = true;
     this.candidatoService.obterCandidato(this.id).subscribe({
       next: candidato => {
         this.formGroup.patchValue(candidato);
         this.fotoUrl = `${environment.bucketFotosUrl}/${candidato.foto}`;
         this.foto = candidato.foto;
-        this.processando = false;
+        this.carregando = false;
       },
       error: () => {
         this.toastr.error('Erro ao carregar dados do candidato');
-        this.processando = false;
+        this.carregando = false;
       }
     })
   }

@@ -9,7 +9,7 @@ export class CargoService {
             _id: uuid(),
             eleicaoId: cargoPayload.eleicaoId,
             nome: cargoPayload.nome,
-            vagas: Number(cargoPayload.vagas)
+            vagas: (cargoPayload.vagas && Number(cargoPayload.vagas)) || null
         };
 
         await new CargoRepository().inserirCargo(cargo);
@@ -21,7 +21,7 @@ export class CargoService {
         const cargoRepository = new CargoRepository();
         const cargo = await cargoRepository.obterCargoPorCodigo(id);
         cargo.nome = cargoPayload.nome;
-        cargo.vagas = Number(cargoPayload.vagas);
+        cargo.vagas = (cargoPayload.vagas && Number(cargoPayload.vagas)) || null;
 
         await cargoRepository.atualizarCargo(id, cargo);
 
