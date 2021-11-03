@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h4 class="modal-title">Candidatos - {{cargo.nome}} - {{nomeEleicao}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="fechar()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" *ngIf="carregando">Carregando...</div>
+<div class="modal-body" *ngIf="!carregando">
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label>Digite o nome do candidato e selecione para incluir:</label>
+        <input type="text" class="form-control" [ngbTypeahead]="search" (selectItem)="onCandidatoSelecionado($event)">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <table class="table table-striped">
+        <thead>
+          <th>Matrícula</th>
+          <th>Nome</th>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="fechar()">Cancelar</button>
+</div>

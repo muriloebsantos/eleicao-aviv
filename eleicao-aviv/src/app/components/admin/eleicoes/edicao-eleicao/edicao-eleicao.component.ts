@@ -10,6 +10,7 @@ import { Cargo } from 'src/app/@core/models/cargo.model';
 import { Eleicao } from 'src/app/@core/models/eleicao.model';
 import { CargoService } from 'src/app/@core/services/cargo.service';
 import { EleicaoService } from 'src/app/@core/services/eleicao.service';
+import { CargoCandidatosComponent } from './edicao-cargo/cargo-candidatos/cargo-candidatos.component';
 import { EdicaoCargoComponent } from './edicao-cargo/edicao-cargo.component';
 
 @Component({
@@ -154,5 +155,14 @@ export class EdicaoEleicaoComponent implements OnInit, OnDestroy {
     const ref = this.modalService.open(EdicaoCargoComponent);
     ref.componentInstance.id = cargoId;
     ref.componentInstance.eleicaoId = this.id;
+  }
+
+  abrirModalCandidatos(cargo: Cargo) {
+    const ref = this.modalService.open(CargoCandidatosComponent, 
+      {
+        size: 'lg'
+      });
+    ref.componentInstance.cargo = cargo;
+    ref.componentInstance.nomeEleicao = this.formGroup.value.nome;
   }
 }

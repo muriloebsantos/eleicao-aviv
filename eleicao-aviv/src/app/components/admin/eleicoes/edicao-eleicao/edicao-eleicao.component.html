@@ -31,7 +31,10 @@
 
 <div class="row" *ngIf="!carregando">
   <div class="col">
-    <button id="btn-salvar-eleicao" type="button" class="btn btn-lg btn-success" (click)="salvar()" [disabled]="processando">Salvar Alterações</button>
+    <div class="acoes-eleicao">
+      <button type="button" class="btn btn-success" (click)="salvar()" [disabled]="processando">Salvar Alterações</button>
+      <button type="button" class="btn btn-secondary action" [routerLink]="['..']">Voltar</button> 
+    </div>
   </div>
 </div>
 
@@ -53,7 +56,7 @@
         <td>{{cargo.vagas}}</td>
         <td>
           <button type="button" class="btn btn-sm btn-primary action" (click)="abrirModalCargo(cargo._id)">Editar</button>
-          <button type="button" class="btn btn-sm btn-primary action">Candidatos</button>
+          <button type="button" class="btn btn-sm btn-primary action" (click)="abrirModalCandidatos(cargo)">Candidatos</button>
         </td>
       </tr>
     </tbody>
