@@ -1,28 +1,14 @@
-.candidato {
-    margin-left: 4px;
+.dados-votacao {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 5vw;
 }
 
 .foto-candidato {
-    width: 150px;
-    height: 150px;
+    width: 100%;
     margin-bottom: 4px;
 }
 
-.apelido-candidato {
-    font-weight: bold;
-}
-
-.btn-selecionar {
-    margin-right: 4px;
-}
-
-.btn-acao-votacao {
-    margin-top: 50px;
-}
-
-.dados-votacao {
-    text-align: center;
-}
 
 .voto-registrado {
     text-align: center;
@@ -33,4 +19,16 @@
     align-items: center;
     text-align: center;
     min-height: 100vh;
+}
+
+.numero {
+    margin-bottom: 16px;
+    width: 100% !important;
+}
+
+.numero-inserido {
+    width: 100%;
+    font-weight: 900;
+    font-size: 9vw;
+    text-align: center;
 }
