@@ -1,2 +1,3 @@
 .DS_Store
 eleicao-aviv/src/environments/environment.ts
+eleicao-aviv/src/environments/environment.prod.ts
