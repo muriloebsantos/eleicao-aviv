@@ -78,14 +78,16 @@ export class CargoCandidatosComponent implements OnInit {
     })
   }
 
-  onCandidatoSelecionado(event: any) {
+  onCandidatoSelecionado(event: any) { 
     if(!event.item) 
       return;
-    
-    const candidatoId = this.candidatos.filter(c => c.exibicao === event.item)[0].id;
+  
+    this.salvar([this.candidatos.filter(c => c.exibicao === event.item)[0].id]);
+  }
 
+  salvar(ids: string[]) {
     this.carregando = true;
-    this.cargoService.adicionarCandidatoAoCargo(this.cargo._id, candidatoId).subscribe({
+    this.cargoService.adicionarCandidatosAoCargo(this.cargo._id, ids).subscribe({
       next: () => {
         this.toastr.success('Adicionado!');
         this.carregando = false;
@@ -115,6 +117,14 @@ export class CargoCandidatosComponent implements OnInit {
         this.carregando = false;
       }
     });
+  }
+
+  adicionarTodos() {
+    if(!confirm('Deseja adicionar todos os candidatos cadastrados nesse cargo?')) {
+      return;
+    }
+
+    this.salvar(this.candidatos.map(c => c.id));
   }
 
   fechar() {

@@ -30,8 +30,8 @@ export class CargoService extends BaseService {
         return this.httpClient.get<Cargo>(`${this.endpoint}/cargos/${id}`);
     }
 
-    public adicionarCandidatoAoCargo(cargoId: string, candidatoId: string) {
-        return this.httpClient.post<Cargo>(`${this.endpoint}/cargos/${cargoId}/candidatos`, { candidatoId });
+    public adicionarCandidatosAoCargo(cargoId: string, ids: string[]) {
+        return this.httpClient.post<Cargo>(`${this.endpoint}/cargos/${cargoId}/candidatos`, ids);
     }
 
     public removerCandidatoDoCargo(cargoId: string, id: string) {

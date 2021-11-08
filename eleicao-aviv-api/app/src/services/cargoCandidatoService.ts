@@ -13,22 +13,28 @@ export default class CargoCandidatoService {
         return new CargoCandidatoRepository().excluirCargoCandidato(id);
     }
 
-    public async inserirCargoCandidato(cargoId: string, cargoCandidatoPayload: any): Promise<CargoCandidato> {
-        const cargoCandidato: CargoCandidato = {
-            _id: uuid(),
-            cargoId: cargoId,
-            candidatoId: cargoCandidatoPayload.candidatoId
-        };
-
+    public async inserirCargoCandidato(cargoId: string, cargoCandidatoPayload: any): Promise<CargoCandidato[]> {
+        const novosCargoCandidatos: CargoCandidato[] = [];
         const cargoCandidtoRepository = new CargoCandidatoRepository();
-        const cargoCandidatoExistente = await cargoCandidtoRepository.obterCargoCandidato(cargoCandidato.cargoId, cargoCandidato.candidatoId);
-        
-        if(cargoCandidatoExistente) {
-            throw new ApiError('Candidato já adicionado ao cargo', 409);
+        const cargosCandidatosExistentes = await cargoCandidtoRepository.obterCandidatosPorCargo(cargoId);
+
+        for(let candidatoId of cargoCandidatoPayload) {
+
+            if(cargosCandidatosExistentes.find(c => c.candidatoId == candidatoId))
+                continue;
+
+            const cargoCandidato: CargoCandidato = {
+                _id: uuid(),
+                cargoId,
+                candidatoId
+            };
+
+            novosCargoCandidatos.push(cargoCandidato);
         }
 
-        await cargoCandidtoRepository.inserirCargoCandidato(cargoCandidato);
+        if(novosCargoCandidatos.length > 0)
+            await cargoCandidtoRepository.inserirCargoCandidatos(novosCargoCandidatos);
 
-        return cargoCandidato;
+        return novosCargoCandidatos;
     }
 }

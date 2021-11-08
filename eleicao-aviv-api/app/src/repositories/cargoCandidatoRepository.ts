@@ -34,9 +34,9 @@ export class CargoCandidatoRepository {
         return db.collection('cargo-candidatos').deleteOne({ _id: id });
     }
 
-    public async inserirCargoCandidato(cargoCandidato: CargoCandidato) {
+    public async inserirCargoCandidatos(cargoCandidatos: CargoCandidato[]) {
         const db = await connectMongoDb();
 
-        return db.collection('cargo-candidatos').insertOne(cargoCandidato);
+        return db.collection('cargo-candidatos').insertMany(cargoCandidatos);
     }
 }
