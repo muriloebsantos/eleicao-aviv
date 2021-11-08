@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from "rxjs";
 import { BaseService } from "./@base/base.service";
 import { Cargo } from "../models/cargo.model";
+import { CargoCandidato } from "../models/cargo-candidato.model";
 
 @Injectable()
 export class CargoService extends BaseService {
@@ -27,5 +28,17 @@ export class CargoService extends BaseService {
 
     public obterCargo(id: string): Observable<Cargo> {
         return this.httpClient.get<Cargo>(`${this.endpoint}/cargos/${id}`);
+    }
+
+    public adicionarCandidatoAoCargo(cargoId: string, candidatoId: string) {
+        return this.httpClient.post<Cargo>(`${this.endpoint}/cargos/${cargoId}/candidatos`, { candidatoId });
+    }
+
+    public removerCandidatoDoCargo(cargoId: string, id: string) {
+        return this.httpClient.delete(`${this.endpoint}/cargos/${cargoId}/candidatos/${id}`);
+    }
+
+    public listarCandidatosDoCargo(cargoId: string): Observable<CargoCandidato[]> {
+        return this.httpClient.get<CargoCandidato[]>(`${this.endpoint}/cargos/${cargoId}/candidatos`);
     }
 }

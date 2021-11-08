@@ -10,7 +10,7 @@
     <div class="col">
       <div class="form-group">
         <label>Digite o nome do candidato e selecione para incluir:</label>
-        <input type="text" class="form-control" [ngbTypeahead]="search" (selectItem)="onCandidatoSelecionado($event)">
+        <input type="text" class="form-control" [disabled]="carregando" [ngbTypeahead]="search" (selectItem)="onCandidatoSelecionado($event)">
       </div>
     </div>
   </div>
@@ -21,8 +21,17 @@
         <thead>
           <th>Matrícula</th>
           <th>Nome</th>
+          <th></th>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <tr *ngFor="let candidato of candidatosCargo">
+            <td>{{candidato.candidato.matricula}}</td>
+            <td>{{candidato.candidato.nome}}</td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="excluir(candidato._id)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

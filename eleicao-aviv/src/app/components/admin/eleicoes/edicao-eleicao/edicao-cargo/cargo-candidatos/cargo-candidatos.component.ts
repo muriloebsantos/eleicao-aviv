@@ -1,11 +1,13 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import {Observable, OperatorFunction} from 'rxjs';
 import { debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
-import { Candidato } from 'src/app/@core/models/candidato.model';
+import { CargoCandidato } from 'src/app/@core/models/cargo-candidato.model';
 import { Cargo } from 'src/app/@core/models/cargo.model';
 import { CandidatoService } from 'src/app/@core/services/candidato.service';
+import { CargoService } from 'src/app/@core/services/cargo.service';
 
 type ConsultaCandidato = {
   id: string,
@@ -21,12 +23,14 @@ export class CargoCandidatosComponent implements OnInit {
 
   constructor( private toastr: ToastrService,
                private ref: NgbActiveModal,
-               private candidatoService: CandidatoService) { }
+               private candidatoService: CandidatoService,
+               private cargoService: CargoService) { }
 
   public carregando: boolean = false;
   public nomeEleicao: string = "";
   public cargo!: Cargo;
   public candidatos: ConsultaCandidato[] = [];
+  public candidatosCargo: CargoCandidato[] = [];
 
   search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
     text$.pipe(
@@ -37,10 +41,12 @@ export class CargoCandidatosComponent implements OnInit {
   );
 
   ngOnInit() {
+    this.carregarCandidatosCargo();
     this.carregarCandidatos();
   }
 
   carregarCandidatos() {
+    this.carregando = true;
     this.candidatoService.listarCandidatos().subscribe({
       next: candidatos => {
         this.candidatos = candidatos.map(c => { 
@@ -49,23 +55,71 @@ export class CargoCandidatosComponent implements OnInit {
           exibicao: `${c.matricula} - ${c.nome}`
           }
         });
+        this.carregando = false;
+      },
+      error: () => {
+        this.carregando = false;
+        this.toastr.error('Erro ao carregar lista de candidatos');
       }
     });
+  }
+
+  carregarCandidatosCargo() {
+    this.carregando = true;
+    this.cargoService.listarCandidatosDoCargo(this.cargo._id).subscribe({
+      next: candidatos => {
+        this.candidatosCargo = candidatos;
+        this.carregando = false;
+      },
+      error: () => {
+        this.toastr.error('Erro ao obter candidatos do cargo');
+        this.carregando = false;
+      }
+    })
   }
 
   onCandidatoSelecionado(event: any) {
     if(!event.item) 
       return;
     
-    const id = this.candidatos.filter(c => c.exibicao === event.item)[0].id;
+    const candidatoId = this.candidatos.filter(c => c.exibicao === event.item)[0].id;
 
-    alert(id);
+    this.carregando = true;
+    this.cargoService.adicionarCandidatoAoCargo(this.cargo._id, candidatoId).subscribe({
+      next: () => {
+        this.toastr.success('Adicionado!');
+        this.carregando = false;
+        this.carregarCandidatosCargo();
+      },
+      error: (err: HttpErrorResponse) => {
+        if(err.status != 500) {
+          this.toastr.error(err.error);
+        } else {
+          this.toastr.error('Erro ao adicionar o candidato ao cargo!');
+        }
+        this.carregando = false;
+      }
+    })
+  }
+
+  excluir(id: string) {
+    this.carregando = true;
+    this.cargoService.removerCandidatoDoCargo(this.cargo._id, id).subscribe({
+      next: () => {
+        this.toastr.success('Removido!');
+        this.carregando = false;
+        this.candidatosCargo = this.candidatosCargo.filter(c => c._id != id);
+      },
+      error: () => {
+        this.toastr.error('Erro ao remover candidato do cargo');
+        this.carregando = false;
+      }
+    });
   }
 
   fechar() {
     this.ref.close();
   }
-
 }
 
 

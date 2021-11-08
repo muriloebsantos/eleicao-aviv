@@ -18,7 +18,7 @@ export const inserirCargoHandler = async (event: APIGatewayProxyEvent): Promise<
 export const atualizarCargoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const cargoService = new CargoService();
-    const result = await cargoService.atualizarCargo(event.pathParameters.id, JSON.parse(event.body));
+    const result = await cargoService.atualizarCargo(event.pathParameters.cargoId, JSON.parse(event.body));
     return defaultResult(200, result);
   } catch(err) {
     return errorResult(err);
@@ -28,7 +28,7 @@ export const atualizarCargoHandler = async (event: APIGatewayProxyEvent): Promis
 export const obterCargoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const cargoService = new CargoService();
-    const result = await cargoService.obterCargoPorId(event.pathParameters.id);
+    const result = await cargoService.obterCargoPorId(event.pathParameters.cargoId);
 
     if(result)
       return defaultResult(200, result);

@@ -2,16 +2,39 @@ import {
     APIGatewayProxyEvent, 
     APIGatewayProxyResult 
   } from "aws-lambda";
-import { CargoCandidatoRepository } from "../repositories/cargoCandidatoRepository";
-import { CargoService } from "../services/cargoService";
+import CargoCandidatoService from "../services/cargoCandidatoService";
 import { defaultResult, errorResult } from "./index"
   
-export const listarCargoCandidatosHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const listarCandidatosPorCargoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    //const cargoService = new CargoService();
-    const result = await new CargoCandidatoRepository().obterCandidatosPorCargo(event.pathParameters.id);
+    const cargoCandidatoService = new CargoCandidatoService();
+    const result = await cargoCandidatoService.obterCandidatosPorCargo(event.pathParameters.cargoId);
 
     return defaultResult(200, result);
+  } catch(err) {
+    return errorResult(err);
+  }
+}
+
+export const inserirCargoCandidatoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const cargoCandidatoService = new CargoCandidatoService();
+    
+    await cargoCandidatoService.inserirCargoCandidato(event.pathParameters.cargoId, JSON.parse(event.body));
+
+    return defaultResult(200);
+  } catch(err) {
+    return errorResult(err);
+  }
+}
+
+export const excluirCargoCandidatoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const cargoCandidatoService = new CargoCandidatoService();
+    
+    await cargoCandidatoService.excluirCargoCandidato(event.pathParameters.id);
+
+    return defaultResult(200);
   } catch(err) {
     return errorResult(err);
   }

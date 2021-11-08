@@ -253,7 +253,7 @@ Resources:
         ApiGatewayEvent:
           Type: Api 
           Properties:
-            Path: /cargos/{id}
+            Path: /cargos/{cargoId}
             Method: get
             RestApiId: !Ref EleicaoAvivApi
             Auth:
@@ -272,7 +272,7 @@ Resources:
         ApiGatewayEvent:
           Type: Api 
           Properties:
-            Path: /cargos/{id}
+            Path: /cargos/{cargoId}
             Method: put
             RestApiId: !Ref EleicaoAvivApi
             Auth:
@@ -297,11 +297,11 @@ Resources:
             Auth:
               Authorizer: NONE
 
-  ListarCargoCandidatosFunction:
+  ListarCandidatosPorCargoFunction:
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: app/dist
-      Handler: ./functions/cargoCandidatoFunction.listarCargoCandidatosHandler
+      Handler: ./functions/cargoCandidatoFunction.listarCandidatosPorCargoHandler
       Runtime: nodejs14.x
       MemorySize: 256
       Policies:
@@ -310,8 +310,46 @@ Resources:
         ApiGatewayEvent:
           Type: Api 
           Properties:
-            Path: /cargos/{id}/candidatos
+            Path: /cargos/{cargoId}/candidatos
             Method: get
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE
+
+  InserirCargoCandidatoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/cargoCandidatoFunction.inserirCargoCandidatoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /cargos/{cargoId}/candidatos
+            Method: post
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE
+
+  ExcluirCargoCandidatoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/cargoCandidatoFunction.excluirCargoCandidatoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /cargos/{cargoId}/candidatos/{id}
+            Method: delete
             RestApiId: !Ref EleicaoAvivApi
             Auth:
               Authorizer: NONE
