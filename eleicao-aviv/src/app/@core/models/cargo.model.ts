@@ -2,5 +2,7 @@ export type Cargo = {
     _id: string,
     eleicaoId: string,
     nome: string,
-    vagas: number
+    vagas: number,
+    dataInicioVotacao?: Date,
+    dataFimVotacao?: Date
 }

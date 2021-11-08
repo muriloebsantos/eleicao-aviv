@@ -165,4 +165,31 @@ export class EdicaoEleicaoComponent implements OnInit, OnDestroy {
     ref.componentInstance.cargo = cargo;
     ref.componentInstance.nomeEleicao = this.formGroup.value.nome;
   }
+
+  iniciarVotacao(id: string) {
+    if(!confirm('Deseja iniciar a votação?')) {
+      return;
+    }
+    
+    this.carregandoCargos = true;
+    this.cargoService.iniciarVotacaoCargo(id).subscribe({
+      next: () => {
+        this.toastr.success('Votação iniciada!');
+        this.obterCargos();
+        this.carregandoCargos = false;
+      },
+      error: (err: HttpErrorResponse) => {
+        if(err.status !== 500) {
+          this.toastr.error(err.error);
+        } else {
+          this.toastr.error('Erro ao iniciar a votação');
+        }
+        this.carregandoCargos = false;
+      }
+    })
+  }
+
+  encerrarVotacao(id: string) {
+
+  }
 }

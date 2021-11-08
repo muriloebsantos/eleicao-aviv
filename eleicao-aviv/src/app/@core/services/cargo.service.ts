@@ -26,6 +26,11 @@ export class CargoService extends BaseService {
         return this.httpClient.put<Cargo>(`${this.endpoint}/cargos/${id}`, cargo);
     }
 
+    public iniciarVotacaoCargo(id: string): Observable<any> {
+        return this.httpClient.post<any>(`${this.endpoint}/cargos/${id}/iniciar-votacao`, null);
+    }
+
+
     public obterCargo(id: string): Observable<Cargo> {
         return this.httpClient.get<Cargo>(`${this.endpoint}/cargos/${id}`);
     }

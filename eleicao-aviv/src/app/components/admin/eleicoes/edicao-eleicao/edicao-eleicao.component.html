@@ -48,14 +48,22 @@
     <thead>
       <th>Nome do Cargo</th>
       <th>Vagas</th>
+      <th>Início Votação</th>
       <th></th>
     </thead>
     <tbody>
       <tr *ngFor="let cargo of cargos">
         <td>{{cargo.nome}}</td>
         <td>{{cargo.vagas}}</td>
+        <td>{{cargo.dataInicioVotacao | date: 'dd/MM/yyyy HH:mm'}}</td>
         <td>
           <button type="button" class="btn btn-sm btn-primary action" (click)="abrirModalCargo(cargo._id)">Editar</button>
+          <button *ngIf="!cargo.dataInicioVotacao" type="button" class="btn btn-sm btn-primary action" (click)="iniciarVotacao(cargo._id)">
+            Iniciar Votação
+          </button>
+          <button *ngIf="cargo.dataInicioVotacao && !cargo.dataFimVotacao" type="button" class="btn btn-sm btn-primary action" (click)="encerrarVotacao(cargo._id)">
+            Encerrar Votação
+          </button>
           <button type="button" class="btn btn-sm btn-primary action" (click)="abrirModalCandidatos(cargo)">Candidatos</button>
         </td>
       </tr>

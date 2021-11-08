@@ -50,3 +50,13 @@ export const listarCargosHandler = async (event: APIGatewayProxyEvent): Promise<
     return errorResult(err);
   }
 }
+
+export const iniciarVotacaoCargoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const cargoService = new CargoService();
+    const result = await cargoService.iniciarVotacaoCargo(event.pathParameters.cargoId);
+    return defaultResult(200, result);
+  } catch(err) {
+    return errorResult(err);
+  }
+}
