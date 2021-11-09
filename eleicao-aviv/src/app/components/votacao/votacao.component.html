@@ -12,9 +12,10 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row candidato">
   <div class="col">
-    <img *ngIf="candidatoSelecionado" class="foto-candidato" [src]="fotoUrl + candidatoSelecionado?.candidato?.foto">
+    <img *ngIf="candidatoSelecionado && candidatoSelecionado.candidato.foto" class="foto-candidato" [src]="fotoUrl + candidatoSelecionado?.candidato?.foto">
+    <img *ngIf="!candidatoSelecionado || !candidatoSelecionado.candidato.foto" class="foto-candidato" [src]="fotoUrl + 'person-icon.png'">
   </div>
   <div class="col">
     <div class="row">
@@ -23,14 +24,14 @@
     </div>
     <div class="row">
       <strong>Candidato:</strong>
-      <span>{{candidatoSelecionado?.candidato?.nome}}</span>
+      <span>{{candidatoSelecionado?.candidato?.nome}} {{!candidatoSelecionado?.candidato?.apelido ? '' : '(' + candidatoSelecionado?.candidato?.apelido + ')'}} </span>
     </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col">
-    <label class="numero-inserido">{{numeroInserido || "****"}}</label>
+    <label class="numero-inserido">{{numeroInserido || "&nbsp;"}}</label>
   </div>
 </div>
 
@@ -42,6 +43,6 @@
     <button class="numero btn btn-primary btn-secondary btn-lg" (click)="limpar()">Limpar</button>
   </div>
   <div class="col-4">
-    <button class="numero btn btn-success btn-lg">Confirmar</button>
+    <button class="numero btn btn-success btn-lg" [disabled]="!candidatoSelecionado">Confirmar</button>
   </div>
 </div>
