@@ -33,7 +33,7 @@
 
 <div class="row">
   <div class="col-4" *ngFor="let numero of numeros">
-    <button class="numero btn btn-primary btn-lg" (click)="onNumeroInserido(numero.toString())">{{numero}}</button>
+    <button class="numero btn btn-primary btn-lg disable-dbl-tap-zoom"  (click)="onNumeroInserido(numero.toString())">{{numero}}</button>
   </div>
   <div class="col-4">
     <button class="numero btn btn-primary btn-secondary btn-lg" (click)="limpar()">Limpar</button>

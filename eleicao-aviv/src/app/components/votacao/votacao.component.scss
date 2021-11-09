@@ -35,3 +35,7 @@
 .info-candidato {
     color: blue;
 }
+
+.disable-dbl-tap-zoom {
+    touch-action: manipulation;
+  }
