@@ -39,6 +39,6 @@
     <button class="numero btn btn-primary btn-secondary btn-lg" (click)="limpar()">Limpar</button>
   </div>
   <div class="col-4">
-    <button class="numero btn btn-success btn-lg" [disabled]="!candidatoSelecionado">Confirmar</button>
+    <button class="numero btn btn-success btn-lg" (click)="confirmarVoto()" [disabled]=" processandoVoto || !candidatoSelecionado">Confirmar</button>
   </div>
 </div>

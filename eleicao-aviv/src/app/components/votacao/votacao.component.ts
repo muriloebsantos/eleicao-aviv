@@ -1,11 +1,14 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CargoCandidato } from 'src/app/@core/models/cargo-candidato.model';
 import { Cargo } from 'src/app/@core/models/cargo.model';
 import { Eleicao } from 'src/app/@core/models/eleicao.model';
-import { Votacao } from 'src/app/@core/models/votacao.model';
+import { Voto } from 'src/app/@core/models/voto.model';
 import { CargoService } from 'src/app/@core/services/cargo.service';
 import { EleicaoService } from 'src/app/@core/services/eleicao.service';
+import { VotacaoService } from 'src/app/@core/services/votacao.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,6 +21,8 @@ export class VotacaoComponent implements OnInit {
 
   constructor(private eleicaoService: EleicaoService,
               private cargoService: CargoService,
+              private votacaoService: VotacaoService,
+              private toastr: ToastrService,
               private router: Router) { }
 
   public exibeVotoRegistrado: boolean = false;
@@ -42,14 +47,20 @@ export class VotacaoComponent implements OnInit {
         this.eleicaoService.obterEleicaoPorCodigo(eleicaoId).subscribe({
           next: eleicao => {
             this.eleicao = eleicao;
-            this.verificarCargo();
-            setInterval(() => this.verificarCargo(), 10000);
+            this.iniciarVerificacaoCargo();
           }
         });
       } else {
         this.router.navigate(['']);
       }
+    } else {
+      this.iniciarVerificacaoCargo();
     }
+  }
+
+  iniciarVerificacaoCargo() {
+    this.verificarCargo();
+    setInterval(() => this.verificarCargo(), 10000);  
   }
 
   verificarCargo() {
@@ -91,5 +102,32 @@ export class VotacaoComponent implements OnInit {
   limpar() {
     this.numeroInserido = "";
     this.candidatoSelecionado = undefined;
+  }
+
+  confirmarVoto() {
+    if(!this.candidatoSelecionado) {
+      return;
+    }
+
+    const voto: Voto = {
+      cargoId: this.cargo!._id,
+      eleicaoId: this.eleicao!._id,
+      candidatoId: this.candidatoSelecionado!.candidatoId
+    };
+
+    this.processandoVoto = true;
+    this.votacaoService.registrarVoto(voto).subscribe({
+      next: () => {
+        this.processandoVoto = false;
+      },
+      error: (err: HttpErrorResponse) => {
+        if(err.status != 500) {
+          this.toastr.error(err.error)
+        } else {
+          this.toastr.error('Erro ao registrar o voto. Tente novamente.');
+        }
+        this.processandoVoto = false;
+      }
+    });
   }
 }

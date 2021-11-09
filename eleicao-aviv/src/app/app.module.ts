@@ -10,6 +10,7 @@ import { EleicaoService } from './@core/services/eleicao.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { CargoService } from './@core/services/cargo.service';
+import { VotacaoService } from './@core/services/votacao.service';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { CargoService } from './@core/services/cargo.service';
    ],
   providers: [
     EleicaoService,
-    CargoService
+    CargoService,
+    VotacaoService
   ],
   bootstrap: [AppComponent]
 })
