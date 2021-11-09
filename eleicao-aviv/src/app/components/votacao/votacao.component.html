@@ -1,13 +1,13 @@
 <div class="row dados-votacao">
   <div class="col">
     <p>
-      <strong>Eleição: </strong>
-      <span>{{eleicao?.nome}}</span>
+      <strong class="h2">Eleição: </strong>
+      <span class="h2">{{eleicao?.nome}}</span>
     </p>
     <p>
-      <strong>Votação: </strong>
-      <span *ngIf="!cargo">[Nenhum cargo aberto para votação, aguarde a atualização automática...]</span>
-      <span *ngIf="cargo">{{cargo?.nome}}</span>
+      <strong class="h2">Votação: </strong>
+      <span *ngIf="!cargo" class="h2">[Nenhum cargo aberto para votação, aguarde a atualização automática...]</span>
+      <span *ngIf="cargo" class="h2">{{cargo?.nome}}</span>
     </p>
   </div>
 </div>
@@ -19,19 +19,15 @@
   </div>
   <div class="col">
     <div class="row">
-      <strong>Codigo:</strong>
-      <span>{{candidatoSelecionado?.candidato?.matricula}}</span>
-    </div>
-    <div class="row">
-      <strong>Candidato:</strong>
-      <span>{{candidatoSelecionado?.candidato?.nome}} {{!candidatoSelecionado?.candidato?.apelido ? '' : '(' + candidatoSelecionado?.candidato?.apelido + ')'}} </span>
+      <strong class="h2">Candidato:</strong>
+      <span class="h2 info-candidato">{{candidatoSelecionado?.candidato?.nome}} {{!candidatoSelecionado?.candidato?.apelido ? '' : '(' + candidatoSelecionado?.candidato?.apelido + ')'}} </span>
     </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col">
-    <label class="numero-inserido">{{numeroInserido || "&nbsp;"}}</label>
+    <label class="numero-inserido" class="h1 numero">{{numeroInserido || "&nbsp;"}}</label>
   </div>
 </div>
 

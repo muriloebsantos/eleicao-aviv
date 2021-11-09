@@ -1,11 +1,9 @@
 .dados-votacao {
     text-align: center;
     margin-top: 32px;
-    font-size: 5vw;
 }
 
 .candidato {
-    font-size: 4vw;
     margin-top: 16px;
 }
 
@@ -15,28 +13,25 @@
     border-width: 1px;
     border: solid;
     border-color: silver;
-}
 
-
-.voto-registrado {
-    text-align: center;
-    font-weight: bold;
-    font-size: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 100vh;
+    @media only screen and (min-width: 1200px) {
+        width: 200px;
+    }
 }
 
 .numero {
+    margin-top: 16px;
     margin-bottom: 16px;
     width: 100% !important;
+    text-align: center;
 }
 
 .numero-inserido {
     width: 100%;
     font-weight: 900;
-    font-size: 9vw;
     text-align: center;
+}
+
+.info-candidato {
+    color: blue;
 }
