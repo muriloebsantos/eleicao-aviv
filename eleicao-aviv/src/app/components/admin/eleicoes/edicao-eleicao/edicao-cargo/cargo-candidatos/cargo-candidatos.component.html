@@ -21,12 +21,19 @@
         <thead>
           <th>Matrícula</th>
           <th>Nome</th>
+          <th>Votos</th>
+          <th>Status</th>
           <th></th>
         </thead>
         <tbody>
           <tr *ngFor="let candidato of candidatosCargo">
             <td>{{candidato.candidato.matricula}}</td>
             <td>{{candidato.candidato.nome}}</td>
+            <td>{{candidato.votos || 0}}</td>
+            <td>
+              <span *ngIf="candidato.eleitoNesseCargo">Eleito</span>
+              <span *ngIf="candidato.eleitoEmOutroCargo">Eleito em outro cargo</span>
+            </td>
             <td>
               <button type="button" class="btn btn-danger" (click)="excluir(candidato._id)">Excluir</button>
             </td>
