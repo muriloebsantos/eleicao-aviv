@@ -4,5 +4,6 @@ export type CargoCandidato = {
     _id: string,
     cargoId: string,
     candidatoId: string,
-    candidato: Candidato
+    candidato: Candidato,
+    eleitoEmOutroCargo?: boolean
 }

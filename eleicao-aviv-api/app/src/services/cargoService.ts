@@ -2,6 +2,8 @@ import { Cargo } from "../entities/cargo";
 import { v4 as uuid } from "uuid";
 import CargoRepository from "../repositories/cargoRepository";
 import { ApiError } from "../util/api-error";
+import VotacaoRepository from "../repositories/votacaoRepository";
+import { CargoCandidatoRepository } from "../repositories/cargoCandidatoRepository";
 
 export class CargoService {
 
@@ -62,5 +64,18 @@ export class CargoService {
         cargo.dataInicioVotacao = new Date();
 
         await cargoRepository.atualizarCargo(cargo._id, cargo);
+    }
+
+    public async encerrarVotacaoCargo(id: string) {
+        const apuracao = await new VotacaoRepository().obterApuracaoVotos(id);
+        const cargoCandidatoRepository = new CargoCandidatoRepository();
+
+        for(let itemApuracao of apuracao) {
+            const cargoCandidato = await cargoCandidatoRepository.obterCargoCandidato(id, itemApuracao._id);
+
+            cargoCandidato.votos = itemApuracao.votos;
+            
+            // todo: update
+        }
     }
 }

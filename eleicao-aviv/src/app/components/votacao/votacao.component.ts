@@ -60,7 +60,7 @@ export class VotacaoComponent implements OnInit {
 
   iniciarVerificacaoCargo() {
     this.verificarCargo();
-    setInterval(() => this.verificarCargo(), 10000);  
+    setInterval(() => this.verificarCargo(), 60000);  
   }
 
   verificarCargo() {
@@ -94,7 +94,7 @@ export class VotacaoComponent implements OnInit {
 
     const candidato = this.candidatos.find(c => c.candidato.matricula === parseInt(this.numeroInserido));
 
-    if(candidato) {
+    if(candidato && !candidato.eleitoEmOutroCargo) {
       this.candidatoSelecionado = candidato;
     }
   }

@@ -5,4 +5,5 @@ export interface CargoCandidato {
     votos?: number;
     eleitoNesseCargo?: boolean;
     eleitoEmOutroCargo?: boolean;
+    recusouCargo?: boolean;
 }

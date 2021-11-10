@@ -22,4 +22,23 @@ export default class VotacaoRepository {
 
         return db.collection('votos').insertOne(voto);
     }
+
+    public async obterApuracaoVotos(cargoId: string) {
+        const db = await connectMongoDb();
+
+        const apuracao = await db.collection('votos').aggregate(
+            [
+                {
+                  $match: { cargoId }
+                }, 
+                {
+                  $group: {
+                    _id: '$candidatoId', 
+                    votos: { $sum: 1 }
+                  }
+                }
+              ]).toArray();
+
+        return apuracao;
+    }
 }
