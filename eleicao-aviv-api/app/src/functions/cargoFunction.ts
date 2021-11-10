@@ -60,3 +60,13 @@ export const iniciarVotacaoCargoHandler = async (event: APIGatewayProxyEvent): P
     return errorResult(err);
   }
 }
+
+export const encerrarVotacaoCargoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const cargoService = new CargoService();
+    const result = await cargoService.encerrarVotacaoCargo(event.pathParameters.cargoId);
+    return defaultResult(200, result);
+  } catch(err) {
+    return errorResult(err);
+  }
+}

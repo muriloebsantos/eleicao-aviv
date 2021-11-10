@@ -71,11 +71,18 @@ export class CargoService {
         const cargoCandidatoRepository = new CargoCandidatoRepository();
 
         for(let itemApuracao of apuracao) {
+
             const cargoCandidato = await cargoCandidatoRepository.obterCargoCandidato(id, itemApuracao._id);
 
             cargoCandidato.votos = itemApuracao.votos;
             
-            // todo: update
+            await cargoCandidatoRepository.atualizarCargoCandidato(cargoCandidato);
         }
+
+        const cargoRepository = new CargoRepository();
+        const cargo = await cargoRepository.obterCargoPorCodigo(id);
+        cargo.dataFimVotacao = new Date();
+
+        await cargoRepository.atualizarCargo(id, cargo);
     }
 }

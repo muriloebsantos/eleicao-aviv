@@ -186,10 +186,29 @@ export class EdicaoEleicaoComponent implements OnInit, OnDestroy {
         }
         this.carregandoCargos = false;
       }
-    })
+    });
   }
 
   encerrarVotacao(id: string) {
-
+    if(!confirm('Deseja encerrar a votação?')) {
+      return;
+    }
+    
+    this.carregandoCargos = true;
+    this.cargoService.encerrarVotacaoCargo(id).subscribe({
+      next: () => {
+        this.toastr.success('Votação encerrada!');
+        this.obterCargos();
+        this.carregandoCargos = false;
+      },
+      error: (err: HttpErrorResponse) => {
+        if(err.status !== 500) {
+          this.toastr.error(err.error);
+        } else {
+          this.toastr.error('Erro ao encerrar a votação');
+        }
+        this.carregandoCargos = false;
+      }
+    })
   }
 }

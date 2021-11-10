@@ -34,6 +34,12 @@ export class CargoCandidatoRepository {
         return db.collection('cargo-candidatos').deleteOne({ _id: id });
     }
 
+    public async atualizarCargoCandidato(cargoCandidato: CargoCandidato) {
+        const db = await connectMongoDb();
+
+        return db.collection('cargo-candidatos').replaceOne({ _id: cargoCandidato._id }, cargoCandidato);
+    }
+
     public async inserirCargoCandidatos(cargoCandidatos: CargoCandidato[]) {
         const db = await connectMongoDb();
 

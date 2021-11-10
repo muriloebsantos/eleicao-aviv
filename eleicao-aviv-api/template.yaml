@@ -316,6 +316,25 @@ Resources:
             Auth:
               Authorizer: NONE
 
+  EncerrarVotacaoCargoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/cargoFunction.encerrarVotacaoCargoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /cargos/{cargoId}/encerrar-votacao
+            Method: post
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE
+
   ListarCandidatosPorCargoFunction:
     Type: AWS::Serverless::Function 
     Properties:
