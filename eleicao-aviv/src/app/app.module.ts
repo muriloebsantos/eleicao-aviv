@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { CargoService } from './@core/services/cargo.service';
 import { VotacaoService } from './@core/services/votacao.service';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { VotacaoService } from './@core/services/votacao.service';
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    NgbModalModule
   ],
   declarations: [	
     AppComponent,

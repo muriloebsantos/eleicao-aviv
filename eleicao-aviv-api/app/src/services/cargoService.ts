@@ -57,7 +57,7 @@ export class CargoService {
 
         const cargos = await cargoRepository.listarCargos(cargo.eleicaoId);
 
-        if(cargos.find(c => c.dataInicioVotacao && !cargo.dataFimVotacao)) {
+        if(cargos.find(c => c.dataInicioVotacao && !c.dataFimVotacao)) {
             throw new ApiError('Já existe uma votação em andamento', 409)
         }
 

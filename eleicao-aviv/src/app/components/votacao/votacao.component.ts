@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CargoCandidato } from 'src/app/@core/models/cargo-candidato.model';
 import { Cargo } from 'src/app/@core/models/cargo.model';
@@ -23,6 +24,7 @@ export class VotacaoComponent implements OnInit {
               private cargoService: CargoService,
               private votacaoService: VotacaoService,
               private toastr: ToastrService,
+              private modalService: NgbModal,
               private router: Router) { }
 
   public exibeVotoRegistrado: boolean = false;
@@ -31,7 +33,7 @@ export class VotacaoComponent implements OnInit {
   public eleicao?: Eleicao;
   public cargo?: Cargo;
   public candidatos: CargoCandidato[] = [];
-  public numeros = [7, 8, 9, 4, 5, 6, 3, 2, 1, 0];
+  public numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   public numeroInserido: string = ""
   public candidatoSelecionado?: CargoCandidato;
   public fotoUrl!: string;
@@ -104,7 +106,7 @@ export class VotacaoComponent implements OnInit {
     this.candidatoSelecionado = undefined;
   }
 
-  confirmarVoto() {
+  confirmarVoto(modalConfirmacao: any) {
     if(!this.candidatoSelecionado) {
       return;
     }
@@ -119,6 +121,12 @@ export class VotacaoComponent implements OnInit {
     this.votacaoService.registrarVoto(voto).subscribe({
       next: () => {
         this.processandoVoto = false;
+        this.candidatoSelecionado = undefined;
+        this.numeroInserido = "";
+        const modal = this.modalService.open(modalConfirmacao, { size: 'xl', backdrop: false, centered: true });
+        setTimeout(() => {
+          modal.close();
+        }, 10000);
       },
       error: (err: HttpErrorResponse) => {
         if(err.status != 500) {

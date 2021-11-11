@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<div class="row candidato">
+<div class="row candidato" *ngIf="cargo">
   <div class="col">
     <img *ngIf="candidatoSelecionado && candidatoSelecionado.candidato.foto" class="foto-candidato" [src]="fotoUrl + candidatoSelecionado?.candidato?.foto">
     <img *ngIf="!candidatoSelecionado || !candidatoSelecionado.candidato.foto" class="foto-candidato" [src]="fotoUrl + 'person-icon.png'">
@@ -31,7 +31,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="cargo">
   <div class="col-4" *ngFor="let numero of numeros">
     <button class="numero btn btn-primary btn-lg disable-dbl-tap-zoom"  (click)="onNumeroInserido(numero.toString())">{{numero}}</button>
   </div>
@@ -39,6 +39,15 @@
     <button class="numero btn btn-primary btn-secondary btn-lg" (click)="limpar()">Limpar</button>
   </div>
   <div class="col-4">
-    <button class="numero btn btn-success btn-lg" (click)="confirmarVoto()" [disabled]=" processandoVoto || !candidatoSelecionado">Confirmar</button>
+    <button class="numero btn btn-success btn-lg" (click)="confirmarVoto(confirmacao)" [disabled]=" processandoVoto || !candidatoSelecionado">Confirmar</button>
   </div>
 </div>
+
+<ng-template #confirmacao let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Sucesso</h4>
+  </div>
+  <div class="modal-body">
+    Voto registrado com sucesso!
+  </div>
+</ng-template>

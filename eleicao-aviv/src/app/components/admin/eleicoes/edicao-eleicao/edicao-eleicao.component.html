@@ -48,7 +48,8 @@
     <thead>
       <th>Nome do Cargo</th>
       <th>Vagas</th>
-      <th>Início Votação</th>
+      <th>Início da Votação</th>
+      <th>Fim da Votação</th>
       <th></th>
     </thead>
     <tbody>
@@ -56,6 +57,7 @@
         <td>{{cargo.nome}}</td>
         <td>{{cargo.vagas}}</td>
         <td>{{cargo.dataInicioVotacao | date: 'dd/MM/yyyy HH:mm'}}</td>
+        <td>{{cargo.dataFimVotacao | date: 'dd/MM/yyyy HH:mm'}}</td>
         <td>
           <button type="button" class="btn btn-sm btn-primary action" (click)="abrirModalCargo(cargo._id)">Editar</button>
           <button *ngIf="!cargo.dataInicioVotacao" type="button" class="btn btn-sm btn-primary action" (click)="iniciarVotacao(cargo._id)">
