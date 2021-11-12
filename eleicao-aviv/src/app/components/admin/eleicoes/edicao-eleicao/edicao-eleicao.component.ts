@@ -160,7 +160,7 @@ export class EdicaoEleicaoComponent implements OnInit, OnDestroy {
   abrirModalCandidatos(cargo: Cargo) {
     const ref = this.modalService.open(CargoCandidatosComponent, 
       {
-        size: 'lg'
+        size: 'xl'
       });
     ref.componentInstance.cargo = cargo;
     ref.componentInstance.nomeEleicao = this.formGroup.value.nome;

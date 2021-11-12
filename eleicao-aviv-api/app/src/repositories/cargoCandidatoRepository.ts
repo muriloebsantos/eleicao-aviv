@@ -18,7 +18,7 @@ export class CargoCandidatoRepository {
                           }
                         },
                         { $unwind: "$candidato" },
-                        { $sort: { "candidato.nome": 1 }} 
+                        { $sort: { "votos": -1 ,  "candidato.nome": 1 }}
                     ]).toArray();
     }
 

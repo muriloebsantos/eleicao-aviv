@@ -6,7 +6,7 @@
 </div>
 <div class="modal-body" *ngIf="carregando">Carregando...</div>
 <div class="modal-body" *ngIf="!carregando">
-  <div class="row">
+  <div class="row" *ngIf="!cargo.dataInicioVotacao">
     <div class="col">
       <div class="form-group">
         <label>Digite o nome do candidato e selecione para incluir:</label>
@@ -35,7 +35,9 @@
               <span *ngIf="candidato.eleitoEmOutroCargo">Eleito em outro cargo</span>
             </td>
             <td>
-              <button type="button" class="btn btn-danger" (click)="excluir(candidato._id)">Excluir</button>
+              <button *ngIf="!cargo.dataInicioVotacao" type="button" class="btn btn-danger" (click)="excluir(candidato._id)">Excluir</button>
+              <button *ngIf="cargo.dataFimVotacao" type="button" class="btn btn-success action" (click)="assumir(candidato)">Assumir</button>
+              <button *ngIf="cargo.dataFimVotacao" type="button" class="btn btn-danger action" (click)="rejeitar(candidato)">Rejeitar</button>
             </td>
           </tr>
         </tbody>

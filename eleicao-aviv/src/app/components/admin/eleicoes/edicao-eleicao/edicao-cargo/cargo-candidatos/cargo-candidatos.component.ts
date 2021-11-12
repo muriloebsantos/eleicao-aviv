@@ -127,6 +127,14 @@ export class CargoCandidatosComponent implements OnInit {
     this.salvar(this.candidatos.map(c => c.id));
   }
 
+  assumir(cargoCandidato: CargoCandidato) {
+
+  }
+
+  rejeitar(cargoCandidato: CargoCandidato) {
+    
+  }
+
   fechar() {
     this.ref.close();
   }

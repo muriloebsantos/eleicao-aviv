@@ -26,7 +26,8 @@ export default class CargoCandidatoService {
             const cargoCandidato: CargoCandidato = {
                 _id: uuid(),
                 cargoId,
-                candidatoId
+                candidatoId,
+                votos: 0
             };
 
             novosCargoCandidatos.push(cargoCandidato);
