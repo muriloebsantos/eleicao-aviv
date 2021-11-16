@@ -2,6 +2,7 @@ import { CargoCandidato } from "../entities/cargo-candidato";
 import { CargoCandidatoRepository } from "../repositories/cargoCandidatoRepository";
 import { v4 as uuid } from "uuid";
 import { ApiError } from "../util/api-error";
+import CargoRepository from "../repositories/cargoRepository";
 
 export default class CargoCandidatoService {
 
@@ -37,5 +38,34 @@ export default class CargoCandidatoService {
             await cargoCandidtoRepository.inserirCargoCandidatos(novosCargoCandidatos);
 
         return novosCargoCandidatos;
+    }
+
+    public async aceitarCargo(cargoId: string, candidatoId: string) {
+        const cargoRepository = new CargoRepository();
+        const cargoCandidatoRepository = new CargoCandidatoRepository();
+        const cargo = await cargoRepository.obterCargoPorCodigo(cargoId);
+        const cargoCandidatos = await cargoCandidatoRepository.obterCandidatosPorCargo(cargoId);
+        const qtdeCandidatosEleitos = cargoCandidatos.filter(c => c.eleitoNesseCargo).length;
+
+        if(qtdeCandidatosEleitos == cargo.vagas) {
+            throw new ApiError('Limite de candidatos eleitos atingido', 422);
+        }
+        
+        const cargoCandidato = await cargoCandidatoRepository.obterCargoCandidato(cargoId, candidatoId);
+        cargoCandidato.eleitoNesseCargo = true;
+        await cargoCandidatoRepository.atualizarCargoCandidato(cargoCandidato);
+
+        const cargosRepository = new CargoRepository();
+        const outrosCargos = await cargosRepository.listarCargos(cargo.eleicaoId);
+
+        for(let outroCargo of outrosCargos.filter(c => c._id != cargoId)) {
+            const candidatosOutroCargo = await cargoCandidatoRepository.obterCandidatosPorCargo(outroCargo._id);
+            const outroCargoCandidatoEleito = candidatosOutroCargo.find(c => c.candidatoId == candidatoId);
+
+            if(outroCargoCandidatoEleito) {
+                outroCargoCandidatoEleito.eleitoEmOutroCargo = true;
+                await cargoCandidatoRepository.atualizarCargoCandidato(outroCargoCandidatoEleito);
+            }
+        }
     }
 }
