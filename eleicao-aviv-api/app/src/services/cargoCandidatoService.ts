@@ -68,4 +68,11 @@ export default class CargoCandidatoService {
             }
         }
     }
+
+    public async recusarCargo(cargoId: string, candidatoId: string) {
+        const cargoCandidatoRepository = new CargoCandidatoRepository();
+        const cargoCandidato = await cargoCandidatoRepository.obterCargoCandidato(cargoId, candidatoId);
+        cargoCandidato.recusouCargo = true;
+        await cargoCandidatoRepository.atualizarCargoCandidato(cargoCandidato);
+    }
 }
