@@ -33,11 +33,12 @@
             <td>
               <span *ngIf="candidato.eleitoNesseCargo">Eleito</span>
               <span *ngIf="candidato.eleitoEmOutroCargo">Eleito em outro cargo</span>
+              <span *ngIf="candidato.recusouCargo">Recusou o cargo</span>
             </td>
             <td>
               <button *ngIf="!cargo.dataInicioVotacao" type="button" class="btn btn-danger" (click)="excluir(candidato._id)">Excluir</button>
-              <button *ngIf="cargo.dataFimVotacao" type="button" class="btn btn-success action" (click)="assumir(candidato)">Assumir</button>
-              <button *ngIf="cargo.dataFimVotacao" type="button" class="btn btn-danger action" (click)="rejeitar(candidato)">Rejeitar</button>
+              <button *ngIf="cargo.dataFimVotacao && !candidato.eleitoEmOutroCargo && !candidato.eleitoNesseCargo && !candidato.recusouCargo" type="button" class="btn btn-success action" (click)="aceitarCargo(candidato)">Aceitar</button>
+              <button *ngIf="cargo.dataFimVotacao && !candidato.eleitoEmOutroCargo && !candidato.eleitoNesseCargo && !candidato.recusouCargo" type="button" class="btn btn-danger action" (click)="rejeitarCargo(candidato)">Rejeitar</button>
             </td>
           </tr>
         </tbody>

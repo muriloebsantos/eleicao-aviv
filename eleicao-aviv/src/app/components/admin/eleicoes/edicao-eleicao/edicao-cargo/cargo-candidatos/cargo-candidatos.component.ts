@@ -127,12 +127,48 @@ export class CargoCandidatosComponent implements OnInit {
     this.salvar(this.candidatos.map(c => c.id));
   }
 
-  assumir(cargoCandidato: CargoCandidato) {
-
+  aceitarCargo(cargoCandidato: CargoCandidato) {
+    if(!confirm('Ao aceitar o cargo o candidato não poderá mais ser votado em outro cargo nessa eleição.')) {
+      return;
+    }
+    this.carregando = true;
+    this.cargoService.aceitarCargo(cargoCandidato.cargoId, cargoCandidato.candidatoId).subscribe({
+      next: () => {
+        this.carregando = false;
+        cargoCandidato.eleitoNesseCargo = true;
+        this.toastr.success('Cargo aceito com sucesso! Candidato não pode mais ser votado em outros cargos nessa eleição.')
+      }, 
+      error: (err: HttpErrorResponse) => {
+        if(err.status != 500) {
+          this.toastr.error(err.error);
+        } else {
+          this.toastr.error('Erro ao aceitar o cargo!');
+        }
+        this.carregando = false;
+      }
+    });
   }
 
-  rejeitar(cargoCandidato: CargoCandidato) {
-    
+  rejeitarCargo(cargoCandidato: CargoCandidato) {
+    if(!confirm('Ao recusar, não poderá voltar atrás.')) {
+      return;
+    }
+    this.carregando = true;
+    this.cargoService.recusarCargo(cargoCandidato.cargoId, cargoCandidato.candidatoId).subscribe({
+      next: () => {
+        this.carregando = false;
+        cargoCandidato.recusouCargo = true;
+        this.toastr.warning('Cargo recusado com sucesso!')
+      }, 
+      error: (err: HttpErrorResponse) => {
+        if(err.status != 500) {
+          this.toastr.error(err.error);
+        } else {
+          this.toastr.error('Erro ao recusar o cargo!');
+        }
+        this.carregando = false;
+      }
+    })
   }
 
   fechar() {

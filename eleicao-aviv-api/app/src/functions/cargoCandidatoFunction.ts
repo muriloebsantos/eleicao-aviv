@@ -40,11 +40,23 @@ export const excluirCargoCandidatoHandler = async (event: APIGatewayProxyEvent):
   }
 }
 
-export const atribuirCargoCandidatoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const aceitarCargoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const cargoCandidatoService = new CargoCandidatoService();
     
-    await cargoCandidatoService.aceitarCargo(event.pathParameters.id, JSON.parse(event.body).candidatoId);
+    await cargoCandidatoService.aceitarCargo(event.pathParameters.cargoId, JSON.parse(event.body).candidatoId);
+
+    return defaultResult(200);
+  } catch(err) {
+    return errorResult(err);
+  }
+}
+
+export const recusarCargoHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  try {
+    const cargoCandidatoService = new CargoCandidatoService();
+    
+    await cargoCandidatoService.recusarCargo(event.pathParameters.cargoId, JSON.parse(event.body).candidatoId);
 
     return defaultResult(200);
   } catch(err) {

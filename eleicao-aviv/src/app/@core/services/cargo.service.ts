@@ -49,4 +49,12 @@ export class CargoService extends BaseService {
     public listarCandidatosDoCargo(cargoId: string): Observable<CargoCandidato[]> {
         return this.httpClient.get<CargoCandidato[]>(`${this.endpoint}/cargos/${cargoId}/candidatos`);
     }
+
+    public aceitarCargo(cargoId: string, candidatoId: string): Observable<any> {
+        return this.httpClient.post<any>(`${this.endpoint}/cargos/${cargoId}/aceitar-cargo`, { candidatoId });
+    }
+
+    public recusarCargo(cargoId: string, candidatoId: string): Observable<any> {
+        return this.httpClient.post<any>(`${this.endpoint}/cargos/${cargoId}/recusar-cargo`, { candidatoId });
+    }
 }

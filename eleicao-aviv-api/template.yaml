@@ -392,11 +392,11 @@ Resources:
             Auth:
               Authorizer: NONE
 
-  AtribuirCargoCandidatoFunction:
+  AceitarCargoCandidatoFunction:
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: app/dist
-      Handler: ./functions/cargoCandidatoFunction.atribuirCargoHandler
+      Handler: ./functions/cargoCandidatoFunction.aceitarCargoHandler
       Runtime: nodejs14.x
       MemorySize: 256
       Policies:
@@ -405,7 +405,26 @@ Resources:
         ApiGatewayEvent:
           Type: Api 
           Properties:
-            Path: /cargos/{cargoId}/atribuir-cargo
+            Path: /cargos/{cargoId}/aceitar-cargo
+            Method: post
+            RestApiId: !Ref EleicaoAvivApi
+            Auth:
+              Authorizer: NONE
+
+  RecusarCargoCandidatoFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: app/dist
+      Handler: ./functions/cargoCandidatoFunction.recusarCargoHandler
+      Runtime: nodejs14.x
+      MemorySize: 256
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess
+      Events:
+        ApiGatewayEvent:
+          Type: Api 
+          Properties:
+            Path: /cargos/{cargoId}/recusar-cargo
             Method: post
             RestApiId: !Ref EleicaoAvivApi
             Auth:
