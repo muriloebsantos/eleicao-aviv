@@ -23,7 +23,7 @@
           <th>Nome</th>
           <th>Votos</th>
           <th>Status</th>
-          <th></th>
+          <th class="d-print-none"></th>
         </thead>
         <tbody>
           <tr *ngFor="let candidato of candidatosCargo">
@@ -35,7 +35,7 @@
               <span *ngIf="candidato.eleitoEmOutroCargo">Eleito em outro cargo</span>
               <span *ngIf="candidato.recusouCargo">Recusou o cargo</span>
             </td>
-            <td>
+            <td class="d-print-none">
               <button *ngIf="!cargo.dataInicioVotacao" type="button" class="btn btn-danger" (click)="excluir(candidato._id)">Excluir</button>
               <button *ngIf="cargo.dataFimVotacao && !candidato.eleitoEmOutroCargo && !candidato.eleitoNesseCargo && !candidato.recusouCargo" type="button" class="btn btn-success action" (click)="aceitarCargo(candidato)">Aceitar</button>
               <button *ngIf="cargo.dataFimVotacao && !candidato.eleitoEmOutroCargo && !candidato.eleitoNesseCargo && !candidato.recusouCargo" type="button" class="btn btn-danger action" (click)="recusarCargo(candidato)">Recusar</button>

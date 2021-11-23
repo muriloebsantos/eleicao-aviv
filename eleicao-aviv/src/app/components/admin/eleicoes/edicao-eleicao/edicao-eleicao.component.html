@@ -32,8 +32,8 @@
 <div class="row" *ngIf="!carregando">
   <div class="col">
     <div class="acoes-eleicao">
-      <button type="button" class="btn btn-success" (click)="salvar()" [disabled]="processando">Salvar Alterações</button>
-      <button type="button" class="btn btn-secondary action" [routerLink]="['..']">Voltar</button> 
+      <button type="button" class="btn btn-success d-print-none" (click)="salvar()" [disabled]="processando">Salvar Alterações</button>
+      <button type="button" class="btn btn-secondary action d-print-none" [routerLink]="['..']">Voltar</button> 
     </div>
   </div>
 </div>
@@ -42,7 +42,7 @@
   <h6>Cargos</h6>
   <hr>
 
-  <button id="btn-incluir-cargo" class="btn btn-outline-success" (click)="abrirModalCargo('')">Incluir Cargo</button>
+  <button id="btn-incluir-cargo" class="btn btn-outline-success d-print-none" (click)="abrirModalCargo('')">Incluir Cargo</button>
   <div *ngIf="carregandoCargos">Carregando...</div>
   <table class="table table-striped" *ngIf="!carregandoCargos">
     <thead>
@@ -50,7 +50,7 @@
       <th>Vagas</th>
       <th>Início da Votação</th>
       <th>Fim da Votação</th>
-      <th></th>
+      <th class="d-print-none"></th>
     </thead>
     <tbody>
       <tr *ngFor="let cargo of cargos">
@@ -58,7 +58,7 @@
         <td>{{cargo.vagas}}</td>
         <td>{{cargo.dataInicioVotacao | date: 'dd/MM/yyyy HH:mm'}}</td>
         <td>{{cargo.dataFimVotacao | date: 'dd/MM/yyyy HH:mm'}}</td>
-        <td>
+        <td class="d-print-none">
           <button type="button" class="btn btn-sm btn-primary action" (click)="abrirModalCargo(cargo._id)">Editar</button>
           <button *ngIf="!cargo.dataInicioVotacao" type="button" class="btn btn-sm btn-primary action" (click)="iniciarVotacao(cargo._id)">
             Iniciar Votação
