@@ -149,7 +149,7 @@ export class CargoCandidatosComponent implements OnInit {
     });
   }
 
-  rejeitarCargo(cargoCandidato: CargoCandidato) {
+  recusarCargo(cargoCandidato: CargoCandidato) {
     if(!confirm('Ao recusar, não poderá voltar atrás.')) {
       return;
     }
@@ -158,7 +158,7 @@ export class CargoCandidatosComponent implements OnInit {
       next: () => {
         this.carregando = false;
         cargoCandidato.recusouCargo = true;
-        this.toastr.warning('Cargo recusado com sucesso!')
+        this.toastr.success('Cargo recusado com sucesso!')
       }, 
       error: (err: HttpErrorResponse) => {
         if(err.status != 500) {

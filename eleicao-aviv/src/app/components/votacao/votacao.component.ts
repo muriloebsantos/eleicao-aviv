@@ -72,6 +72,7 @@ export class VotacaoComponent implements OnInit {
 
         if(!cargoEmVotacao) {
           this.cargo = undefined;
+          this.numeroInserido = "";
           return;
         }
 
@@ -98,6 +99,8 @@ export class VotacaoComponent implements OnInit {
 
     if(candidato && !candidato.eleitoEmOutroCargo) {
       this.candidatoSelecionado = candidato;
+    } else {
+      this.candidatoSelecionado = undefined;
     }
   }
 
@@ -134,6 +137,8 @@ export class VotacaoComponent implements OnInit {
         } else {
           this.toastr.error('Erro ao registrar o voto. Tente novamente.');
         }
+        this.numeroInserido = "";
+        this.candidatoSelecionado = undefined;
         this.processandoVoto = false;
       }
     });
