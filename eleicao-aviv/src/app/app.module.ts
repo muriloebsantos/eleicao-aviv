@@ -12,6 +12,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { CargoService } from './@core/services/cargo.service';
 import { VotacaoService } from './@core/services/votacao.service';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './@core/guards/auth.guard';
 
 @NgModule({
   imports: [
@@ -26,12 +28,14 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [	
     AppComponent,
     VotacaoComponent,
-    CodigoEleicaoComponent
+    CodigoEleicaoComponent,
+    LoginComponent
    ],
   providers: [
     EleicaoService,
     CargoService,
-    VotacaoService
+    VotacaoService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

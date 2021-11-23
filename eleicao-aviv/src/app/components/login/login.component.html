@@ -1,0 +1,12 @@
+<div class="text-center">
+  <form class="form-signin" [formGroup]="formGroup">
+    <img class="mb-4" src="assets/logo.png" alt="" width="256" height="256">
+    <h1 class="h3 mb-3 font-weight-normal">Sistema de Votação AVIV</h1>
+    <label for="inputUsuario" class="sr-only">Usuário</label>
+    <input type="text" id="inputUsuario" formControlName="usuario" class="form-control" placeholder="Usuário" autofocus>
+    <label for="inputSenha" class="sr-only">Senha</label>
+    <input type="password" id="inputSenha" formControlName="senha" class="form-control" placeholder="Senha">
+    <button class="btn btn-lg btn-primary btn-block" type="button" (click)="autenticar()">Autenticar</button>
+    <p class="mt-5 mb-3 text-muted">&copy; Ministério Aviv 2021</p>
+  </form>
+</div>
