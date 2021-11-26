@@ -4,6 +4,7 @@ import { AdminComponent } from "./admin.component";
 import { CandidatosComponent } from "./candidatos/candidatos.component";
 import { EdicaoEleicaoComponent } from "./eleicoes/edicao-eleicao/edicao-eleicao.component";
 import { EleicoesComponent } from "./eleicoes/eleicoes.component";
+import { ImpressaoEleicaoComponent } from "./eleicoes/impressao-eleicao/impressao-eleicao.component";
 
 const routes: Routes = [
     {
@@ -21,6 +22,10 @@ const routes: Routes = [
           {
             path: 'eleicoes/:id',
             component: EdicaoEleicaoComponent
+          },
+          {
+            path: 'eleicoes/:id/impressao',
+            component: ImpressaoEleicaoComponent
           }
       ]
     }

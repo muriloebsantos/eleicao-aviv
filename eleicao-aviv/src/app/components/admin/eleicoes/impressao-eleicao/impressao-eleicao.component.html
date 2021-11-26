@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col">
+    <strong>Eleição: </strong>
+    <label>{{eleicao?.nome}}</label>
+  </div>
+  <div class="col">
+    <strong>Data: </strong>
+    <label>{{eleicao?.dataEleicao | date: 'dd/MM/yyyy'}}</label>
+  </div>
+  <div class="col">
+    <strong>Eleitores: </strong>
+    <label>{{eleicao?.quantidadeEleitores}}</label>
+  </div>
+</div>
+
+<hr>
+<h3>Cargos</h3>
+<hr>
+<ng-container *ngFor="let cargo of cargos">
+  <h5>{{cargo.nome}}</h5>
+  <div class="row">
+    <div class="col">
+      <strong>Início Votação: </strong>
+      <label>{{cargo.dataInicioVotacao | date: 'dd/MM/yyyy HH:mm'}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <strong>Fim Votação: </strong>
+      <label>{{cargo.dataFimVotacao | date: 'dd/MM/yyyy HH:mm'}}</label>
+    </div>
+  </div>
+  <table class="resultados table table-sm table-striped">
+    <thead>
+      <th>Código</th>
+      <th>Nome</th>
+      <th>Votos</th>
+      <th>Status</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cargoCandidato of filterCandidatos(cargo._id)" [class.eleito]="cargoCandidato.eleitoNesseCargo">
+        <td>{{cargoCandidato.candidato.matricula}}</td>
+        <td>{{cargoCandidato.candidato.nome}}</td>
+        <td>{{cargoCandidato.votos}}</td>
+        <td>
+          <span *ngIf="cargoCandidato.eleitoNesseCargo">Eleito</span>
+          <span *ngIf="cargoCandidato.eleitoEmOutroCargo">Eleito em outro cargo</span>
+          <span *ngIf="cargoCandidato.recusouCargo">Recusou o cargo ou ausente</span>
+          {{cargoCandidato.eleitoNesseCargo}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
